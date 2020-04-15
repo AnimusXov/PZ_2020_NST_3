@@ -27,6 +27,7 @@ public class App extends Application {
 
 
 
+
         scene = new Scene(loadFXML("primary"));
         stage.setScene(scene);
         stage.show();

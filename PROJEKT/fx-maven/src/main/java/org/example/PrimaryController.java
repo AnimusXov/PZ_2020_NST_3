@@ -21,25 +21,26 @@ import java.io.IOException;
 public class PrimaryController {
 
 
+    public static int grantAccess = 0;
     public Label test;
     public TextField username;
-    int grantAccess = 0;
     public Button login;
     public PasswordField password;
 
 
     @FXML
-    private void openAdminWindow() throws IOException {
-        System.out.println("aaaaaa");
+    private void openMainWindow() throws IOException {
+
         FXMLLoader fxmlLoader = new
-                FXMLLoader(getClass().getResource("admin.fxml"));
+                FXMLLoader(getClass().getResource("main.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
-        //set what you want on your stage
+
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Report Page");
+        stage.setTitle("Główne Okno");
         stage.setScene(new Scene(root1));
         stage.setResizable(false);
+
         stage.show();
 
 
@@ -77,13 +78,9 @@ public class PrimaryController {
 
    @FXML
    private void handleButtonAction(ActionEvent event) throws IOException {
-       if(validateUser()) {
-           switch (grantAccess) {
-               case 3:
-                   openAdminWindow();
-                   break;
-
-           }}
+       if(validateUser()){
+                   openMainWindow();
+       test.setText("Zalogowano pomyślnie");}
        else
            test.setText("Nie poprawne Hasło lub Login");
 
