@@ -14,11 +14,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.JMetroStyleClass;
+import jfxtras.styles.jmetro.Style;
 
 import java.io.IOException;
 
 
-public class PrimaryController {
+public class LoginController {
 
 
     public static int grantAccess = 0;
@@ -26,21 +29,23 @@ public class PrimaryController {
     public TextField username;
     public Button login;
     public PasswordField password;
+    public AnchorPane anchorPane;
 
 
     @FXML
     private void openMainWindow() throws IOException {
 
+        Scene scene;
         FXMLLoader fxmlLoader = new
                 FXMLLoader(getClass().getResource("main.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
-
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Główne Okno");
-        stage.setScene(new Scene(root1));
+        scene = (new Scene(root1));
+        stage.setScene(scene);
+        JMetro jMetro = new JMetro(Style.DARK);
+        jMetro.setScene(scene);
         stage.setResizable(false);
-
         stage.show();
 
 
@@ -86,6 +91,13 @@ public class PrimaryController {
 
 
    }
+
+    @FXML
+    void initialize() {
+        anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
+
+
+    }
 
 
 

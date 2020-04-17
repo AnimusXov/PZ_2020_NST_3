@@ -2,6 +2,8 @@ package org.example;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import jfxtras.styles.jmetro.JMetroStyleClass;
 
 public class TasksController {
     public ChoiceBox actionBox;
@@ -13,6 +15,7 @@ public class TasksController {
     public TableColumn<Object, Object> count;
     public TableColumn<Object, Object> status;
     public TableColumn<Object, Object> priority;
+    public AnchorPane anchorPane;
 
 
     public void initialize() {
@@ -32,7 +35,7 @@ public class TasksController {
         actionBox.getItems().addAll("Zmień Stan", "Raportuj", "Gen. Raport", "Wstrzymaj");
         actionBox.getSelectionModel().select("Zmień Stan");
 
-
+        anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         tasksList.getItems().add(task);
         tasksList.getItems().add(task2);
         tasksList.getItems().add(task3);

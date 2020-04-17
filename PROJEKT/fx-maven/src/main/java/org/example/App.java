@@ -5,11 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import jfxtras.styles.jmetro.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 
 /**
  * JavaFX App
@@ -21,17 +19,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-
-
-
-
-
-
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("login"));
+        JMetro jMetro = new JMetro(Style.DARK);
         stage.setScene(scene);
+        jMetro.setScene(scene);
         stage.show();
-
     }
 
     static void setRoot(String fxml) throws IOException {
