@@ -21,6 +21,6 @@
       </TableView>
       <ChoiceBox fx:id="actionBox" accessibleText="Akcja" layoutX="408.0" layoutY="513.0" prefWidth="150.0" />
       <Separator layoutX="-2.0" layoutY="86.0" prefHeight="13.0" prefWidth="971.0" />
-      <Separator layoutX="-2.0" layoutY="500.0" prefHeight="13.0" prefWidth="970.0" />
+      <Separator layoutX="-2.0" layoutY="500.0" prefHeight="13.0" prefWidth="971.0" />
    </children>
 </AnchorPane>

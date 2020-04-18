@@ -22,6 +22,12 @@ public class User {
         return access_level;
     }
 
+
+    public User(String username, int access_level) {
+        this.username = username;
+        this.access_level = access_level;
+    }
+
     public void setAccess_level(int access_level) {
         this.access_level = access_level;
     }

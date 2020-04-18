@@ -11,7 +11,7 @@
             <Separator prefWidth="200.0" />
             <Button fx:id="activeUsers" mnemonicParsing="false" prefHeight="25.0" prefWidth="274.0" text="Przeglądaj Aktywnych" />
             <Separator prefWidth="200.0" />
-            <Button fx:id="manageUsers" mnemonicParsing="false" prefHeight="25.0" prefWidth="203.0" text="Zarządzaj Użytkownkami" />
+            <Button fx:id="manageUsers" mnemonicParsing="false" onAction="#handleButtonActionUsers" prefHeight="25.0" prefWidth="203.0" text="Zarządzaj Użytkownkami" />
             <Separator prefWidth="200.0" />
             <Button fx:id="taskList" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="193.0" text="Zadania" />
         </children>
