@@ -4,9 +4,5 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="org.entity.DepartmentsEntity" table="departments" schema="public" catalog="Firma">
-        <property name="name">
-            <column name="name" sql-type="text" not-null="true"/>
-        </property>
-    </class>
+    <class name="org.entity.DepartmentsEntity"/>
 </hibernate-mapping>

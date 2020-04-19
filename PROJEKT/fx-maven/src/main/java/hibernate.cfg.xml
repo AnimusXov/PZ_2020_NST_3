@@ -15,8 +15,9 @@
         <mapping resource="org.entity/UserEntity.hbm.xml"/>
         <mapping class="org.entity.UserEntity"/>
         <mapping class="org.entity.DepartmentsEntity"/>
-        <mapping resource="DepartmentsEntity.hbm.xml"/>
         <mapping class="org.entity.DepartmentsEntity"/>
+        <mapping class="org.entity.DepartmentsEntity"/>
+        <mapping resource="org.entity/DepartmentsEntity.hbm.xml"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 
