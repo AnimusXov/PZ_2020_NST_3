@@ -1,4 +1,4 @@
-package org.example;
+package org.main;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;

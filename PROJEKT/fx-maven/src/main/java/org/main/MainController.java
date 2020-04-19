@@ -1,4 +1,4 @@
-package org.example;
+package org.main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

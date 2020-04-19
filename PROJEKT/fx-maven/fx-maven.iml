@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" version="4">
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="hibernate.cfg.xml" value="cdee422d-31ed-46ad-89d6-843e0cdcf8ba" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/java/hibernate.cfg.xml" />
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -10,6 +21,33 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Hibernate 5.4.11-5.4.11" type="hibernate">
+        <properties version="5.4.11" />
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/classmate-1.5.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/antlr-2.7.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/FastInfoset-1.2.15.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/byte-buddy-1.10.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/dom4j-2.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-commons-annotations-5.1.0.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/istack-commons-runtime-3.0.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jandex-2.1.1.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/javassist-3.24.0-GA.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/javax.persistence-api-2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jaxb-api-2.3.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/javax.activation-api-1.2.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jaxb-runtime-2.3.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-core-5.4.11.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jboss-logging-3.3.2.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jboss-transaction-api_1.2_spec-1.1.1.Final.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/stax-ex-1.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/txw2-2.3.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:14" level="project" />

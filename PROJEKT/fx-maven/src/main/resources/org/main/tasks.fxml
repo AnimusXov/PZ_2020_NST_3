@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="660.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.TasksController">
+<AnchorPane fx:id="anchorPane" prefHeight="660.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.TasksController">
    <children>
       <TableView fx:id="tasksList" editable="true" layoutY="94.0" prefHeight="411.0" prefWidth="971.0">
         <columns>

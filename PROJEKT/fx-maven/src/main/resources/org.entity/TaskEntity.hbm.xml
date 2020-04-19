@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="org.entity.TaskEntity" table="task" schema="public" catalog="Firma">
+        <id name="taskId">
+            <column name="task_id" sql-type="integer"/>
+        </id>
+        <property name="status">
+            <column name="status" sql-type="char(12)" length="12" not-null="true"/>
+        </property>
+        <property name="quantity">
+            <column name="quantity" sql-type="smallint" not-null="true"/>
+        </property>
+        <property name="done">
+            <column name="done" sql-type="smallint" not-null="true"/>
+        </property>
+        <property name="name">
+            <column name="name" sql-type="text"/>
+        </property>
+        <property name="index">
+            <column name="index" sql-type="text"/>
+        </property>
+        <property name="piority">
+            <column name="piority" sql-type="text" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
