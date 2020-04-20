@@ -96,9 +96,7 @@ public class TaskEntity {
         if (done != null ? !done.equals(that.done) : that.done != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (index != null ? !index.equals(that.index) : that.index != null) return false;
-        if (piority != null ? !piority.equals(that.piority) : that.piority != null) return false;
-
-        return true;
+        return piority != null ? piority.equals(that.piority) : that.piority == null;
     }
 
     @Override

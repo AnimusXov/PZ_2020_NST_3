@@ -36,9 +36,7 @@ public class DepartmentsEntity {
         DepartmentsEntity that = (DepartmentsEntity) o;
 
         if (depId != that.depId) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-
-        return true;
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     @Override

@@ -48,9 +48,7 @@ public class EmployeeEntity {
 
         if (employeeId != that.employeeId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
-
-        return true;
+        return surname != null ? surname.equals(that.surname) : that.surname == null;
     }
 
     @Override

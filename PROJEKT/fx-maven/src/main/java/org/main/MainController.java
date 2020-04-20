@@ -45,7 +45,7 @@ public class MainController {
         Scene scene;
         FXMLLoader fxmlLoader = new
                 FXMLLoader(getClass().getResource("tasks.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         scene = (new Scene(root1));
@@ -63,7 +63,7 @@ public class MainController {
         Scene scene;
         FXMLLoader fxmlLoader = new
                 FXMLLoader(getClass().getResource("users.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
+        Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         scene = (new Scene(root1));
