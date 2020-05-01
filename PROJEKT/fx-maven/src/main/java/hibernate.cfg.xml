@@ -14,10 +14,11 @@
         <mapping class="org.entity.TaskEntity"/>
         <mapping resource="org.entity/UserEntity.hbm.xml"/>
         <mapping class="org.entity.UserEntity"/>
-        <mapping class="org.entity.DepartmentsEntity"/>
-        <mapping class="org.entity.DepartmentsEntity"/>
-        <mapping class="org.entity.DepartmentsEntity"/>
         <mapping resource="org.entity/DepartmentsEntity.hbm.xml"/>
+        <mapping class="org.entity.SuppliersEntity"/>
+        <mapping resource="org.entity/SuppliersEntity.hbm.xml"/>
+        <mapping class="org.entity.SupplyEntity"/>
+        <mapping resource="org.entity/SupplyEntity.hbm.xml"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.Style;
+import org.entity.UserEntity;
 
 import java.io.IOException;
 
@@ -64,8 +65,8 @@ public class LoginController {
 
    @FXML
     private boolean validateUser(){
-       User temp_user = new User(username.getText(),password.getText());
-       for (User user: App.usersList){
+       UserEntity temp_user = new UserEntity(username.getText(),password.getText());
+       for (UserEntity user: App.usersList){
            if(user.equals(temp_user)) {
                grantAccess = user.getAccess_level();
                return true;

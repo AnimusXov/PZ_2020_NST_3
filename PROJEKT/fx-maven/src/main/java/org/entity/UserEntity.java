@@ -1,9 +1,6 @@
 package org.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user", schema = "public", catalog = "Firma")
@@ -11,8 +8,9 @@ public class UserEntity {
     private int userId;
     private String username;
     private String password;
+    private int accessLevel;
 
-    @Basic
+    @Id
     @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
@@ -42,6 +40,16 @@ public class UserEntity {
         this.password = password;
     }
 
+    @Basic
+    @Column(name = "access_level", nullable = false)
+    public int getAccessLevel() {
+        return accessLevel;
+    }
+
+    public void setAccessLevel(int accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,8 +58,11 @@ public class UserEntity {
         UserEntity that = (UserEntity) o;
 
         if (userId != that.userId) return false;
+        if (accessLevel != that.accessLevel) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        return password != null ? password.equals(that.password) : that.password == null;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+
+        return true;
     }
 
     @Override
@@ -59,6 +70,7 @@ public class UserEntity {
         int result = userId;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + accessLevel;
         return result;
     }
 }

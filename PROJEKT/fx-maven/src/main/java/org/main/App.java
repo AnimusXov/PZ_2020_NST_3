@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import jfxtras.styles.jmetro.*;
+import org.entity.UserEntity;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 public class App extends Application {
 
     private static Scene scene;
-    public static ArrayList<User> usersList= new ArrayList<>();
+    public static ArrayList<UserEntity> usersList= new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -33,9 +35,9 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        User user = new User("pracownik1","haslo",1);
-        User user2 = new User("admin","123456",3);
-        User user3 = new User("kierownik","haslo2",2);
+        UserEntity user = new UserEntity("pracownik1","haslo",1);
+        UserEntity user2 = new UserEntity("admin","123456",3);
+        UserEntity user3 = new UserEntity("kierownik","haslo2",2);
         usersList.add(user);
         usersList.add(user2);
         usersList.add(user3);
