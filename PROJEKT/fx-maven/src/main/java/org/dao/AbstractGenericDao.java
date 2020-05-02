@@ -7,6 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
+
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractGenericDao<E> implements GenericDao<E> {
@@ -55,13 +60,20 @@ public abstract class AbstractGenericDao<E> implements GenericDao<E> {
 
     @Override
     public List<E> findAll() {
-        return getSession().createCriteria(this.entityClass).list();
+        CriteriaBuilder cb = getSession().getCriteriaBuilder();
+        CriteriaQuery<E> cr = cb.createQuery(this.entityClass);
+        return (List<E>) cr.getGroupList();
+
     }
 
     @Override
     public List<E> findAllByExample(E entity) {
+        CriteriaBuilder cb = getSession().getCriteriaBuilder();
+        CriteriaQuery<E> cr = cb.createQuery(this.entityClass);
+
         Example example = Example.create(entity).ignoreCase().enableLike().excludeZeroes();
-        return getSession().createCriteria(this.entityClass).add(example).list();
+        return (List<E>) cr.where((Expression<Boolean>) example).getGroupList();
+      //.  return getSession().createCriteria(this.entityClass).add(example).list();
     }
 
     @Override

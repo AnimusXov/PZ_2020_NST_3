@@ -5,11 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jfxtras.styles.jmetro.*;
-import org.entity.UserEntity;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
+import org.hibernate.HibernateException;
+import org.hibernate.Metamodel;
+import org.hibernate.query.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
+import javax.persistence.metamodel.EntityType;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * JavaFX App
@@ -17,7 +23,22 @@ import java.util.ArrayList;
 public class App extends Application {
 
     private static Scene scene;
-    public static ArrayList<UserEntity> usersList= new ArrayList<>();
+    private static final SessionFactory ourSessionFactory;
+
+    static {
+        try {
+            Configuration configuration = new Configuration();
+            configuration.configure();
+
+            ourSessionFactory = configuration.buildSessionFactory();
+        } catch (Throwable ex) {
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    public static Session getSession() throws HibernateException {
+        return ourSessionFactory.openSession();
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -35,12 +56,6 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        UserEntity user = new UserEntity("pracownik1","haslo",1);
-        UserEntity user2 = new UserEntity("admin","123456",3);
-        UserEntity user3 = new UserEntity("kierownik","haslo2",2);
-        usersList.add(user);
-        usersList.add(user2);
-        usersList.add(user3);
         return fxmlLoader.load();
 
     }
@@ -50,7 +65,18 @@ public class App extends Application {
 
 
         launch();
-
+        try (Session session = getSession()) {
+            System.out.println("querying all the managed entities...");
+            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
+            for (EntityType<?> entityType : metamodel.getEntities()) {
+                final String entityName = entityType.getName();
+                final Query query = session.createQuery("from " + entityName);
+                System.out.println("executing: " + query.getQueryString());
+                for (Object o : query.list()) {
+                    System.out.println("  " + o);
+                }
+            }
+        }
 
 
     }

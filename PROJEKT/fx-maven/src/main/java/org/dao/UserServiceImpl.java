@@ -2,7 +2,8 @@ package org.dao;
 
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.main.User;
+import org.entity.UserEntity;
+import org.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,41 +15,42 @@ public class UserServiceImpl implements UserService {
     final static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     @Autowired
-    UserDao employeeDao;
+    UserDao userDao;
 
-    public List<User> getAllEmployees() {
-        logger.debug("Getting all employees...");
-        return UserDao.findAll();
+    public List<UserEntity> getAllUsers() {
+        logger.debug("Pobieranie wszystkich użytkowników...");
+        return userDao.findAll();
     }
 
     /**
      * Add new employee if it in not already exists
      *
-     * @param employee: Employee to add
+     * @param user: User to add
      */
     @Override
     @Transactional(readOnly = false)
-    public void addNewEmployee(User user) {
-        User emp = new User();
-        emp.setFirstname(employee.getFirstname());
-        emp.setLastname(employee.getLastname());
-        List<Employee> emplList = employeeDao.findAllByExample(emp);
+    public void addNewUser(UserEntity user) {
+        UserEntity emp = new UserEntity();
+        emp.setUsername(user.getUsername());
+        emp.setPassword(user.getPassword());
+        emp.setAccessLevel(user.getAccessLevel());
+        List<UserEntity> emplList = userDao.findAllByExample(emp);
         if (emplList == null || emplList.isEmpty()) {
-            Long id = (Long) employeeDao.save(employee);
-            logger.debug("Id of new Employee " + id);
+            Long id = (Long) userDao.save(user);
+            logger.debug("Id nowego użytkownika " + id);
         } else {
-            logger.debug("Employee " + emp + " already exists");
+            logger.debug("Użytkownik " + emp + " already exists");
         }
     }
 
     /**
-     * Return maximum salary given to any employee
+     * Return maximum salary given to any user
      *
      * @return max salary
      */
     @Override
-    public Integer getMaxSalary() {
-        return employeeDao.getMaxSalary();
+    public String getUsername() {
+        return  userDao.getUsername();
     }
 
 }

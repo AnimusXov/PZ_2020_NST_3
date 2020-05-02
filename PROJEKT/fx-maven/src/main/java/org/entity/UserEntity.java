@@ -65,6 +65,15 @@ public class UserEntity {
         return true;
     }
 
+    public UserEntity(String username, String password, int accessLevel) {
+        this.username = username;
+        this.password = password;
+        this.accessLevel = accessLevel;
+    }
+
+    public UserEntity() {
+    }
+
     @Override
     public int hashCode() {
         int result = userId;

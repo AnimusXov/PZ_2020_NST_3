@@ -4,5 +4,18 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="org.entity.UserEntity"/>
+    <class name="org.entity.UserEntity" table="user" schema="public" catalog="Firma">
+        <id name="userId">
+            <column name="user_id" sql-type="integer"/>
+        </id>
+        <property name="username">
+            <column name="username" sql-type="text"  not-null="true"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="text" not-null="true"/>
+        </property>
+        <property name="accessLevel">
+            <column name="access_level" sql-type="integer" not-null="true"/>
+        </property>
+    </class>
 </hibernate-mapping>
