@@ -8,13 +8,12 @@
         <property name="connection.driver_class">org.postgresql.Driver</property>
         <mapping class="org.entity.DepartmentsEntity"/>
         <mapping resource="org.entity/DepartmentsEntity.hbm.xml"/>
-        <mapping resource="org.entity/EmployeeEntity.hbm.xml"/>
         <mapping class="org.entity.EmployeeEntity"/>
-        <mapping resource="org.entity/TaskEntity.hbm.xml"/>
+        <mapping resource="org.entity/EmployeeEntity.hbm.xml"/>
         <mapping class="org.entity.TaskEntity"/>
-        <mapping resource="org.entity/UserEntity.hbm.xml"/>
+        <mapping resource="org.entity/TaskEntity.hbm.xml"/>
         <mapping class="org.entity.UserEntity"/>
-        <mapping resource="org.entity/DepartmentsEntity.hbm.xml"/>
+        <mapping resource="org.entity/UserEntity.hbm.xml"/>
         <mapping class="org.entity.SuppliersEntity"/>
         <mapping resource="org.entity/SuppliersEntity.hbm.xml"/>
         <mapping class="org.entity.SupplyEntity"/>

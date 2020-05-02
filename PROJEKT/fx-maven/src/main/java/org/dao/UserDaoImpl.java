@@ -1,24 +1,59 @@
 package org.dao;
 
-
 import org.entity.UserEntity;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Projections;
-import org.springframework.stereotype.Repository;
 
-import org.entity.EmployeeEntity;
+import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-@Repository
-public class UserDaoImpl extends AbstractGenericDao<UserEntity> implements UserDao {
-
+public class UserDaoImpl implements UserDao {
     @Override
     public String getUsername() {
-
-        return "test";
+        return null;
     }
 
+    @Override
+    public Serializable save(UserEntity entity) {
+
+        return null;
+    }
+
+    @Override
+    public void saveOrUpdate(UserEntity entity) {
+
+    }
+
+    @Override
+    public void delete(UserEntity entity) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
+    public List<UserEntity> findAll() {
+        return null;
+    }
+
+    @Override
+    public List<UserEntity> findAllByExample(UserEntity entity) {
+        return null;
+    }
+
+    @Override
+    public UserEntity findById(Serializable id) {
+        return null;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public void flush() {
+
+    }
 }

@@ -1,40 +1,42 @@
 package org.main;
 
-import org.apache.log4j.Logger;
-import org.entity.UserEntity;
-import org.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.HibernateException;
+import org.hibernate.Metamodel;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
-import java.util.List;
+import javax.persistence.metamodel.EntityType;
 
 public class testClass {
-    final static Logger logger = Logger.getLogger(testClass.class);
+    private static final SessionFactory ourSessionFactory;
 
-    @Autowired
-    private UserService userService;
-    public void performDbTasks()
-    {
-        // Get all employees
-        List<UserEntity> userList = userService.getAllUsers();
-        printEmployees(userList);
-        UserEntity empNew = new UserEntity("pracownik2", "haslo3", 1);
+    static {
+        try {
+            Configuration configuration = new Configuration();
+            configuration.configure();
 
-        // Save new employee
-        userService.addNewUser(empNew);
-
-        // Get all employees - to check added employee
-        userList = userService.getAllUsers();
-        printEmployees(userList);
-
-        String username = userService.getUsername();
-        logger.debug("username: " + username);
+            ourSessionFactory = configuration.buildSessionFactory();
+        } catch (Throwable ex) {
+            throw new ExceptionInInitializerError(ex);
+        }
     }
-
-    private void printEmployees(List<UserEntity> emplist) {
-        if (emplist != null) {
-            logger.debug("Znaleziono łącznie " + emplist.size() + " rekordów.");
-            for (UserEntity employee : emplist) {
-                logger.debug(employee.toString());
+    public static Session getSession() throws HibernateException {
+        return ourSessionFactory.openSession();
+    }
+    public void test() {
+        try (
+                Session session = getSession()) {
+            System.out.println("querying all the managed entities...");
+            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
+            for (EntityType<?> entityType : metamodel.getEntities()) {
+                final String entityName = entityType.getName();
+                final Query query = session.createQuery("from " + entityName);
+                System.out.println("executing: " + query.getQueryString());
+                for (Object o : query.list()) {
+                    System.out.println("  " + o);
+                }
             }
         }
     }
