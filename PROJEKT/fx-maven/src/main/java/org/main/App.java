@@ -7,12 +7,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.Style;
+import org.entity.UserEntity;
 import org.hibernate.HibernateException;
 import org.hibernate.Metamodel;
 import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernateutil.HibernateUtil;
 
 import javax.persistence.metamodel.EntityType;
 import java.io.IOException;
@@ -23,22 +25,9 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
-    private static final SessionFactory ourSessionFactory;
 
-    static {
-        try {
-            Configuration configuration = new Configuration();
-            configuration.configure();
 
-            ourSessionFactory = configuration.buildSessionFactory();
-        } catch (Throwable ex) {
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
 
-    public static Session getSession() throws HibernateException {
-        return ourSessionFactory.openSession();
-    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -62,21 +51,30 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
+        UserEntity user = new UserEntity();
+        user.setUsername("pracownik4");
+        user.setPassword("haslo123");
+        user.setAccessLevel(1);
 
+        //Create session factory object
 
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        //getting session object from session factory
+        Session session = sessionFactory.openSession();
+        //getting transaction object from session object
+        session.beginTransaction();
+
+        session.save(user);
+        System.out.println("Inserted Successfully");
+        session.getTransaction().commit();
+        session.close();
+        sessionFactory.close();
         launch();
-        try (Session session = getSession()) {
-            System.out.println("querying all the managed entities...");
-            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
-            for (EntityType<?> entityType : metamodel.getEntities()) {
-                final String entityName = entityType.getName();
-                final Query query = session.createQuery("from " + entityName);
-                System.out.println("executing: " + query.getQueryString());
-                for (Object o : query.list()) {
-                    System.out.println("  " + o);
-                }
-            }
-        }
+
+
+
+
+
 
 
     }

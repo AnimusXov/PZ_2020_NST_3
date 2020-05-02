@@ -1,10 +1,12 @@
 package org.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user", schema = "public", catalog = "Firma")
 public class UserEntity {
+    private static final long serialVersionUID = 1449433614485002429L;
     private int userId;
     private String username;
     private String password;
@@ -59,10 +61,8 @@ public class UserEntity {
 
         if (userId != that.userId) return false;
         if (accessLevel != that.accessLevel) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-
-        return true;
+        if (!Objects.equals(username, that.username)) return false;
+        return Objects.equals(password, that.password);
     }
 
     public UserEntity(String username, String password, int accessLevel) {

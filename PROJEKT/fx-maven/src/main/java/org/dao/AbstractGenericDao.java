@@ -6,11 +6,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
-import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
 
 
 @SuppressWarnings("unchecked")
@@ -23,7 +21,7 @@ public abstract class AbstractGenericDao<E> implements GenericDao<E> {
                 .getActualTypeArguments()[0];
     }
 
-    @Autowired
+
     private SessionFactory sessionFactory;
 
     protected Session getSession() {
