@@ -4,5 +4,5 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="org.entity.SuppliersEntity"/>
+    <class name="org.entities.SuppliersEntity"/>
 </hibernate-mapping>

@@ -1,4 +1,4 @@
-package org.entity;
+package org.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,8 +12,13 @@ public class UserEntity {
     private String password;
     private int accessLevel;
 
+
+    public UserEntity() {
+    }
+
     @Id
-    @Column(name = "user_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id", nullable = false, unique = true)
     public int getUserId() {
         return userId;
     }
@@ -65,14 +70,6 @@ public class UserEntity {
         return Objects.equals(password, that.password);
     }
 
-    public UserEntity(String username, String password, int accessLevel) {
-        this.username = username;
-        this.password = password;
-        this.accessLevel = accessLevel;
-    }
-
-    public UserEntity() {
-    }
 
     @Override
     public int hashCode() {

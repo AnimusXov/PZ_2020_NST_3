@@ -10,6 +10,13 @@ module org.example {
     requires java.naming;
     requires org.hibernate.orm.core;
     requires java.persistence;
+    requires net.bytebuddy;
+    requires java.xml.bind;
+    requires java.activation;
+    requires com.sun.xml.bind;
+    requires com.fasterxml.classmate;
+    exports org.entities;
+
 
 
     opens org.main to javafx.fxml;

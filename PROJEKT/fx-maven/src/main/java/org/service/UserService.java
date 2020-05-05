@@ -2,7 +2,7 @@ package org.service;
 
 import java.util.List;
 
-import org.entity.UserEntity;
+import org.entities.UserEntity;
 
 public interface UserService {
 

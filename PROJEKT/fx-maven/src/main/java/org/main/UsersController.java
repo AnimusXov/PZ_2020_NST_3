@@ -2,11 +2,9 @@ package org.main;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import jfxtras.styles.jmetro.JMetroStyleClass;
-import org.entity.UserEntity;
 
 public class UsersController {
     public Button add;
