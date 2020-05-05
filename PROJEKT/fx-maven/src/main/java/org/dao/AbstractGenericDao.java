@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernateutil.HibernateUtil;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
@@ -15,6 +17,7 @@ import javax.persistence.criteria.Expression;
 public abstract class AbstractGenericDao<E> implements GenericDao<E> {
 
     private final Class<E> entityClass;
+    HibernateUtil util;
 
     public AbstractGenericDao() {
         this.entityClass = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass())

@@ -6,22 +6,22 @@
     <session-factory>
         <property name="connection.url">jdbc:postgresql://localhost:5432/Firma</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <mapping class="org.entity.DepartmentsEntity"/>
-        <mapping resource="org.entity/DepartmentsEntity.hbm.xml"/>
-        <mapping class="org.entity.EmployeeEntity"/>
-        <mapping resource="org.entity/EmployeeEntity.hbm.xml"/>
-        <mapping class="org.entity.TaskEntity"/>
-        <mapping resource="org.entity/TaskEntity.hbm.xml"/>
-        <mapping class="org.entity.UserEntity"/>
-        <mapping resource="org.entity/UserEntity.hbm.xml"/>
-        <mapping class="org.entity.SuppliersEntity"/>
-        <mapping resource="org.entity/SuppliersEntity.hbm.xml"/>
-        <mapping class="org.entity.SupplyEntity"/>
-        <mapping resource="org.entity/SupplyEntity.hbm.xml"/>
-        <!-- <property name="connection.username"/> -->
-        <!-- <property name="connection.password"/> -->
-
-        <!-- DB schema will be updated if needed -->
-        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
-    </session-factory>
-</hibernate-configuration>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">iostream123</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="show_sql">true</property>
+        <mapping class="org.entities.UserEntity"/>
+        <!--  <mapping resource="entity/UserEntity.hbm.xml"/>-->
+          <mapping class="org.entities.DepartmentsEntity"/>
+        <!--  <mapping resource="entity/DepartmentsEntity.hbm.xml"/>-->
+          <mapping class="org.entities.EmployeeEntity"/>
+        <!--  <mapping resource="entity/EmployeeEntity.hbm.xml"/>-->
+          <mapping class="org.entities.TaskEntity"/>
+        <!--  <mapping resource="entity/TaskEntity.hbm.xml"/>-->
+          <mapping class="org.entities.SuppliersEntity"/>
+        <!--  <mapping resource="entity/SuppliersEntity.hbm.xml"/>-->
+          <mapping class="org.entities.SupplyEntity"/>
+        <!--  <mapping resource="entity/SupplyEntity.hbm.xml"/>-->
+      </session-factory>
+  </hibernate-configuration>

@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.Style;
-import org.entity.UserEntity;
+
 
 import java.io.IOException;
 
@@ -72,6 +72,7 @@ public class LoginController {
    @FXML
    private void handleButtonAction(ActionEvent event) throws IOException {
        if(validateUser()){
+
                    openMainWindow();
        test.setText("Zalogowano pomyślnie");}
        else

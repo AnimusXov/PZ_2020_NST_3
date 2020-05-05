@@ -12,6 +12,13 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.Style;
+import org.dao.AbstractGenericDao;
+import org.dao.UserDaoImpl;
+import org.entities.UserEntity;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernateutil.HibernateUtil;
 
 import java.io.IOException;
 
@@ -93,6 +100,8 @@ public class MainController {
 
     @FXML
     void initialize() {
+        UserDaoImpl impl = new UserDaoImpl();
+        impl.findById(1);
         anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         accessCheck();
 

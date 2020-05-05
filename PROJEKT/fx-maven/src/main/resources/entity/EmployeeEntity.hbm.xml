@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="org.entity.EmployeeEntity" table="employee" schema="public" catalog="Firma">
+    <class name="org.entities.EmployeeEntity" table="employee" schema="public" catalog="Firma">
         <id name="employeeId">
             <column name="employee_id" sql-type="integer"/>
         </id>

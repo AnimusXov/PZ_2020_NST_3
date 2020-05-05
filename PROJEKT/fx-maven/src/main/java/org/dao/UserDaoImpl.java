@@ -1,59 +1,18 @@
 package org.dao;
 
-import org.entity.UserEntity;
+import org.entities.UserEntity;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class UserDaoImpl implements UserDao {
-    @Override
-    public String getUsername() {
-        return null;
-    }
+public class UserDaoImpl extends AbstractGenericDao<UserEntity>  implements UserDao  {
 
     @Override
-    public Serializable save(UserEntity entity) {
-
-        return null;
+    public String getUser(int id) {
+        return findById(id).toString();
     }
 
-    @Override
-    public void saveOrUpdate(UserEntity entity) {
 
-    }
-
-    @Override
-    public void delete(UserEntity entity) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
-
-    @Override
-    public List<UserEntity> findAll() {
-        return null;
-    }
-
-    @Override
-    public List<UserEntity> findAllByExample(UserEntity entity) {
-        return null;
-    }
-
-    @Override
-    public UserEntity findById(Serializable id) {
-        return null;
-    }
-
-    @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public void flush() {
-
-    }
 }

@@ -1,8 +1,8 @@
 package org.dao;
 
 
-import org.entity.UserEntity;
+import org.entities.UserEntity;
 
 public interface UserDao extends GenericDao<UserEntity> {
-    String getUsername();
+    String getUser(int id);
 }
