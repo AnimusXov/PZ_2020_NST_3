@@ -16,6 +16,12 @@ public class UserEntity {
     public UserEntity() {
     }
 
+    public UserEntity(String username, String password, int accessLevel) {
+        this.username = username;
+        this.password = password;
+        this.accessLevel = accessLevel;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false, unique = true)

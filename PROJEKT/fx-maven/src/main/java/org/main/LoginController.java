@@ -17,9 +17,21 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.Style;
+import org.entities.UserEntity;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernateutil.HibernateUtil;
+import org.service.GenericServiceImpl;
+import org.service.IGenericService;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Optional;
 
 
 public class LoginController {
@@ -65,7 +77,22 @@ public class LoginController {
 
    @FXML
     private boolean validateUser(){
-   return true;
+       Session session = HibernateUtil.getSessionFactory().openSession();
+
+       UserEntity emp_user = new UserEntity();
+       emp_user.setUsername(username.getText());
+       emp_user.setPassword(password.getText());
+
+       String hql = "select username from UserEntity where username= :username and password= :password";
+       Query query = session.createQuery(hql);
+       query.setParameter("username", emp_user.getUsername());
+       query.setParameter("password", emp_user.getPassword());
+       Optional first = query.getResultList().stream().findFirst();
+       System.out.println(first);
+       return first.isPresent();
+
+
+
    }
 
 

@@ -11,6 +11,7 @@
         <property name="connection.password">iostream123</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
         <mapping class="org.entities.UserEntity"/>
         <!--  <mapping resource="entity/UserEntity.hbm.xml"/>-->
           <mapping class="org.entities.DepartmentsEntity"/>

@@ -13,12 +13,25 @@ public class TaskEntity {
     private String index;
     private String piority;
 
+
+
     @Basic
     @Column(name = "status", nullable = true, length = 12)
     public String getStatus() {
         return status;
     }
 
+    public TaskEntity() {
+    }
+
+    public TaskEntity(String name, String index, Short quantity, Short done, String status, String priority) {
+        this.name = name;
+        this.index = index;
+        this.quantity = quantity;
+        this.done = done;
+        this.status = status;
+        this.piority = priority;
+    }
     public void setStatus(String status) {
         this.status = status;
     }

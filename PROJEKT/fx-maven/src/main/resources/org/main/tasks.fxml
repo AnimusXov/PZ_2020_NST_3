@@ -7,7 +7,6 @@
    <children>
       <TableView fx:id="tasksList" editable="true" layoutY="94.0" prefHeight="411.0" prefWidth="971.0">
         <columns>
-          <TableColumn fx:id="id" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="name" prefWidth="75.0" text="Nazwa" />
             <TableColumn fx:id="index" prefWidth="75.0" text="Indeks" />
             <TableColumn fx:id="quantity" prefWidth="75.0" text="Ilość" />
