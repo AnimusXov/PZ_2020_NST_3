@@ -1,4 +1,4 @@
-package org.main;
+package org.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,9 +18,10 @@ import java.io.IOException;
 public class MainController {
     public Button userList;
     public Button manageUsers;
-    public Button activeUsers;
     public Button taskList;
     public AnchorPane anchorPane;
+    public Button suppliers;
+    public Button materials;
 
     @FXML
     void accessCheck() {
@@ -28,7 +29,8 @@ public class MainController {
             case 1:
                 userList.setDisable(true);
                 manageUsers.setDisable(true);
-                activeUsers.setDisable(true);
+                suppliers.setDisable(true);
+                materials.setDisable(true);
                 break;
             case 2:
                 userList.setDisable(true);

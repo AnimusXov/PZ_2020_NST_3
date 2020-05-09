@@ -18,7 +18,7 @@ module org.example {
     exports org.entities;
 
 
-
+    opens org.entities to org.hibernate.orm.core;
     opens org.main to javafx.fxml;
     exports org.main;
 

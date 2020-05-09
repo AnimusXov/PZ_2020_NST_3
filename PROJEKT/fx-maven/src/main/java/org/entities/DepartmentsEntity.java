@@ -5,16 +5,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "departments", schema = "public", catalog = "Firma")
 public class DepartmentsEntity {
-    private int depId;
+    private Integer depId;
     private String name;
 
     @Id
     @Column(name = "dep_id", nullable = false)
-    public int getDepId() {
+    public Integer getDepId() {
         return depId;
     }
 
-    public void setDepId(int depId) {
+    public void setDepId(Integer depId) {
         this.depId = depId;
     }
 
@@ -35,13 +35,15 @@ public class DepartmentsEntity {
 
         DepartmentsEntity that = (DepartmentsEntity) o;
 
-        if (depId != that.depId) return false;
-        return name != null ? name.equals(that.name) : that.name == null;
+        if (depId != null ? !depId.equals(that.depId) : that.depId != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = depId;
+        int result = depId != null ? depId.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

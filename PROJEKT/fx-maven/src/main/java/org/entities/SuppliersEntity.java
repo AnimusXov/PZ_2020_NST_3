@@ -5,16 +5,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "suppliers", schema = "public", catalog = "Firma")
 public class SuppliersEntity {
-    private int supplierId;
+    private Integer supplierId;
     private String companyName;
 
     @Id
     @Column(name = "supplier_id", nullable = false)
-    public int getSupplierId() {
+    public Integer getSupplierId() {
         return supplierId;
     }
 
-    public void setSupplierId(int supplierId) {
+    public void setSupplierId(Integer supplierId) {
         this.supplierId = supplierId;
     }
 
@@ -35,7 +35,7 @@ public class SuppliersEntity {
 
         SuppliersEntity that = (SuppliersEntity) o;
 
-        if (supplierId != that.supplierId) return false;
+        if (supplierId != null ? !supplierId.equals(that.supplierId) : that.supplierId != null) return false;
         if (companyName != null ? !companyName.equals(that.companyName) : that.companyName != null) return false;
 
         return true;
@@ -43,7 +43,7 @@ public class SuppliersEntity {
 
     @Override
     public int hashCode() {
-        int result = supplierId;
+        int result = supplierId != null ? supplierId.hashCode() : 0;
         result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
         return result;
     }

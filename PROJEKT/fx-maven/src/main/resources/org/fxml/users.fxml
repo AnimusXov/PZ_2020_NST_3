@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controllers.UsersController">
+    <SplitPane dividerPositions="0.7207357859531772" prefHeight="400.0" prefWidth="600.0">
+      <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="405.0">
+              <children>
+                  <TableView fx:id="userList" editable="true" prefHeight="400.0" prefWidth="430.0" tableMenuButtonVisible="true">
+                      <columns>
+                          <TableColumn fx:id="username" prefWidth="75.0" text="Nazwa Użytkownika" />
+                          <TableColumn fx:id="access_level" prefWidth="75.0" text="Poziom Dostępu" />
+                          <TableColumn fx:id="password" prefWidth="75.0" text="Hasło" />
+                      </columns>
+                      <columnResizePolicy>
+                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                      </columnResizePolicy>
+                  </TableView>
+              </children>
+          </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="600.0">
+              <children>
+                  <VBox prefHeight="398.0" prefWidth="164.0" spacing="10.0">
+                      <children>
+                          <Button fx:id="add" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="172.0" text="Dodaj" />
+                          <Button fx:id="delete" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Usuń" />
+                          <Button fx:id="edit" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="211.0" text="Edytuj" />
+                          <Button fx:id="more_info" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="189.0" text="Więcej Informacji" />
+                     <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="Nazwa Użytkownika" textAlignment="CENTER">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
+                     </Label>
+                     <TextField fx:id="username_textField" promptText="Nazwa Użytkownika" />
+                     <Label alignment="CENTER" layoutX="10.0" layoutY="150.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="Hasło" textAlignment="CENTER" />
+                     <TextField fx:id="password_textField" layoutX="10.0" layoutY="150.0" promptText="Hasło" />
+                     <Label alignment="CENTER" layoutX="10.0" layoutY="212.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="Poziom Dostępu" textAlignment="CENTER" />
+                     <TextField fx:id="accessLevel_textField" layoutX="10.0" layoutY="185.0" promptText="Poziom Dostępu" />
+                     <Label fx:id="information_label" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" textAlignment="CENTER" />
+                      </children>
+                      <padding>
+                          <Insets bottom="10.0" />
+                      </padding>
+                  </VBox>
+              </children>
+          </AnchorPane>
+      </items>
+    </SplitPane>
+   <TableView layoutX="599.0" layoutY="168.0" prefHeight="232.0" prefWidth="199.0">
+     <columns>
+       <TableColumn prefWidth="75.0" text="Imię" />
+       <TableColumn prefWidth="75.0" text="Nazwisko" />
+     </columns>
+   </TableView>
+   <VBox layoutX="617.0" prefHeight="150.0" prefWidth="164.0" spacing="10.0">
+      <children>
+         <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="164.0" text="Imię" textAlignment="CENTER" />
+         <TextField fx:id="name_textField" prefHeight="20.0" prefWidth="164.0" promptText="Imię" />
+         <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="24.0" prefWidth="164.0" text="Nazwisko" textAlignment="CENTER" />
+         <TextField fx:id="surname_textField" prefHeight="27.0" prefWidth="164.0" promptText="Nazwisko" />
+      </children>
+      <padding>
+         <Insets bottom="10.0" />
+      </padding>
+   </VBox>
+</AnchorPane>

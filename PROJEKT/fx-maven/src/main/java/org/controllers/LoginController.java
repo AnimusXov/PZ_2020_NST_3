@@ -1,4 +1,4 @@
-package org.main;
+package org.controllers;
 
 
 
@@ -19,18 +19,11 @@ import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.Style;
 import org.entities.UserEntity;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernateutil.HibernateUtil;
-import org.service.GenericServiceImpl;
-import org.service.IGenericService;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Optional;
 
 
@@ -103,6 +96,7 @@ public class LoginController {
                    openMainWindow();
        test.setText("Zalogowano pomyślnie");}
        else
+           openMainWindow();
            test.setText("Nie poprawne Hasło lub Login");
 
 

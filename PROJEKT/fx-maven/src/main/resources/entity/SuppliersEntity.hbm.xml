@@ -4,5 +4,12 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="org.entities.SuppliersEntity"/>
+    <class name="org.entities.SuppliersEntity" table="suppliers" schema="public" catalog="Firma">
+        <id name="supplierId">
+            <column name="supplier_id" sql-type="integer"/>
+        </id>
+        <property name="companyName">
+            <column name="company_name" sql-type="text"/>
+        </property>
+    </class>
 </hibernate-mapping>

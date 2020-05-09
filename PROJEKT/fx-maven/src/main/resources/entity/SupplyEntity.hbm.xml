@@ -4,5 +4,24 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="org.entities.SupplyEntity"/>
+    <class name="org.entities.SupplyEntity" table="supply" schema="public" catalog="Firma">
+        <id name="supplyId">
+            <column name="supply_id" sql-type="integer"/>
+        </id>
+        <property name="metallicMaterials">
+            <column name="metallic_materials" sql-type="integer"/>
+        </property>
+        <property name="woodenMaterials">
+            <column name="wooden_materials" sql-type="integer"/>
+        </property>
+        <property name="composites">
+            <column name="composites" sql-type="integer"/>
+        </property>
+        <property name="marble">
+            <column name="marble" sql-type="integer"/>
+        </property>
+        <property name="stoneMaterials">
+            <column name="stone_materials" sql-type="integer"/>
+        </property>
+    </class>
 </hibernate-mapping>

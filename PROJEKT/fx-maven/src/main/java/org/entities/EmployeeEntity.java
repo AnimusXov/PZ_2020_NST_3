@@ -5,12 +5,25 @@ import javax.persistence.*;
 @Entity
 @Table(name = "employee", schema = "public", catalog = "Firma")
 public class EmployeeEntity {
-    private String name;
-    private String surname;
-    private int employeeId;
 
     @Basic
     @Column(name = "name", nullable = false, length = -1)
+    private String name;
+
+    @Basic
+    @Column(name = "surname", nullable = false, length = -1)
+    private String surname;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
+
     public String getName() {
         return name;
     }
@@ -19,8 +32,7 @@ public class EmployeeEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "surname", nullable = false, length = -1)
+
     public String getSurname() {
         return surname;
     }
@@ -29,14 +41,13 @@ public class EmployeeEntity {
         this.surname = surname;
     }
 
-    @Id
-    @Column(name = "employee_id", nullable = false)
-    public int getEmployeeId() {
-        return employeeId;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
@@ -46,16 +57,37 @@ public class EmployeeEntity {
 
         EmployeeEntity that = (EmployeeEntity) o;
 
-        if (employeeId != that.employeeId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return surname != null ? surname.equals(that.surname) : that.surname == null;
+        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + employeeId;
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         return result;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity userEntity) {
+        this.user = userEntity;
+    }
+
+
+    @Override
+    public String toString() {
+        return "EmployeeEntity{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", id=" + id +
+                ", userEntity=" + user +
+                '}';
     }
 }

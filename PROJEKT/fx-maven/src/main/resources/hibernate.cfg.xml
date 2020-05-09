@@ -14,15 +14,15 @@
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
         <mapping class="org.entities.UserEntity"/>
         <!--  <mapping resource="entity/UserEntity.hbm.xml"/>-->
-          <mapping class="org.entities.DepartmentsEntity"/>
+        <mapping class="org.entities.DepartmentsEntity"/>
         <!--  <mapping resource="entity/DepartmentsEntity.hbm.xml"/>-->
-          <mapping class="org.entities.EmployeeEntity"/>
+        <mapping class="org.entities.EmployeeEntity"/>
         <!--  <mapping resource="entity/EmployeeEntity.hbm.xml"/>-->
-          <mapping class="org.entities.TaskEntity"/>
+        <mapping class="org.entities.TaskEntity"/>
         <!--  <mapping resource="entity/TaskEntity.hbm.xml"/>-->
-          <mapping class="org.entities.SuppliersEntity"/>
+        <mapping class="org.entities.SuppliersEntity"/>
         <!--  <mapping resource="entity/SuppliersEntity.hbm.xml"/>-->
-          <mapping class="org.entities.SupplyEntity"/>
+        <mapping class="org.entities.SupplyEntity"/>
         <!--  <mapping resource="entity/SupplyEntity.hbm.xml"/>-->
-      </session-factory>
-  </hibernate-configuration>
+    </session-factory>
+</hibernate-configuration>

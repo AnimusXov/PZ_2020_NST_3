@@ -5,8 +5,8 @@
 <hibernate-mapping>
 
     <class name="org.entities.EmployeeEntity" table="employee" schema="public" catalog="Firma">
-        <id name="employeeId">
-            <column name="employee_id" sql-type="integer"/>
+        <id name="id">
+            <column name="id" sql-type="integer"/>
         </id>
         <property name="name">
             <column name="name" sql-type="text"/>

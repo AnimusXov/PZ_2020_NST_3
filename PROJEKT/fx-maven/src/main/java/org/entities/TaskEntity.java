@@ -6,14 +6,12 @@ import javax.persistence.*;
 @Table(name = "task", schema = "public", catalog = "Firma")
 public class TaskEntity {
     private String status;
-    private int taskId;
+    private Integer taskId;
     private Short quantity;
     private Short done;
     private String name;
     private String index;
     private String piority;
-
-
 
     @Basic
     @Column(name = "status", nullable = true, length = 12)
@@ -21,28 +19,17 @@ public class TaskEntity {
         return status;
     }
 
-    public TaskEntity() {
-    }
-
-    public TaskEntity(String name, String index, Short quantity, Short done, String status, String priority) {
-        this.name = name;
-        this.index = index;
-        this.quantity = quantity;
-        this.done = done;
-        this.status = status;
-        this.piority = priority;
-    }
     public void setStatus(String status) {
         this.status = status;
     }
 
     @Id
     @Column(name = "task_id", nullable = false)
-    public int getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 
@@ -101,21 +88,23 @@ public class TaskEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TaskEntity that = (TaskEntity) o;
+        org.entities.TaskEntity that = (org.entities.TaskEntity) o;
 
-        if (taskId != that.taskId) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (taskId != null ? !taskId.equals(that.taskId) : that.taskId != null) return false;
         if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
         if (done != null ? !done.equals(that.done) : that.done != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (index != null ? !index.equals(that.index) : that.index != null) return false;
-        return piority != null ? piority.equals(that.piority) : that.piority == null;
+        if (piority != null ? !piority.equals(that.piority) : that.piority != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
         int result = status != null ? status.hashCode() : 0;
-        result = 31 * result + taskId;
+        result = 31 * result + (taskId != null ? taskId.hashCode() : 0);
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
         result = 31 * result + (done != null ? done.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
@@ -124,3 +113,4 @@ public class TaskEntity {
         return result;
     }
 }
+
