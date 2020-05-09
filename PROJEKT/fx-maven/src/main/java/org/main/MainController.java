@@ -1,4 +1,4 @@
-package org.controllers;
+package org.main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,10 +43,10 @@ public class MainController {
     }
 
     @FXML
-    private void openTasksWindow() throws IOException {
+    private void openNewWindow(String fxml) throws IOException {
         Scene scene;
         FXMLLoader fxmlLoader = new
-                FXMLLoader(getClass().getResource("tasks.fxml"));
+                FXMLLoader(getClass().getResource(fxml));
         Parent root1 = fxmlLoader.load();
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -56,26 +56,6 @@ public class MainController {
         jMetro.setScene(scene);
         stage.setResizable(false);
         stage.show();
-
-
-    }
-    @FXML
-    private void openUsersWindow() throws IOException {
-
-        Scene scene;
-        FXMLLoader fxmlLoader = new
-                FXMLLoader(getClass().getResource("users.fxml"));
-        Parent root1 = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        scene = (new Scene(root1));
-        stage.setScene(scene);
-        JMetro jMetro = new JMetro(Style.DARK);
-        jMetro.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-
-
     }
 
 
@@ -83,12 +63,17 @@ public class MainController {
     //Okno zadan
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
-        openTasksWindow();
+        openNewWindow("tasks.fxml");
     }
 
     @FXML
     private void handleButtonActionUsers(ActionEvent event) throws IOException {
-        openUsersWindow();
+        openNewWindow("users.fxml");
+    }
+
+    @FXML
+    private void handleButtonSupply(ActionEvent event) throws IOException {
+        openNewWindow("supply.fxml");
     }
 
 

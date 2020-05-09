@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controllers.LoginController">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.LoginController">
    <children>
        <VBox alignment="CENTER" fillWidth="false" prefHeight="347.0" prefWidth="250.0" spacing="20.0">
-         <Label fx:id="test" text="test" />
+         <Label fx:id="test" />
            <Label prefWidth="31.0" text="Login" />
            <TextField fx:id="username" prefHeight="37.0" prefWidth="220.0" />
            <Label text="Hasło" />

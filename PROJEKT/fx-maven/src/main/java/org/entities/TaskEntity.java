@@ -24,6 +24,7 @@ public class TaskEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "task_id", nullable = false)
     public Integer getTaskId() {
         return taskId;

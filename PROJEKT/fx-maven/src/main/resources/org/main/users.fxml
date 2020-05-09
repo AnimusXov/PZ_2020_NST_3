@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.controllers.UsersController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.UsersController">
     <SplitPane dividerPositions="0.7207357859531772" prefHeight="400.0" prefWidth="600.0">
       <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="405.0">
@@ -26,9 +26,9 @@
                   <VBox prefHeight="398.0" prefWidth="164.0" spacing="10.0">
                       <children>
                           <Button fx:id="add" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="172.0" text="Dodaj" />
-                          <Button fx:id="delete" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="Usuń" />
-                          <Button fx:id="edit" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="211.0" text="Edytuj" />
-                          <Button fx:id="more_info" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="189.0" text="Więcej Informacji" />
+                          <Button fx:id="delete" mnemonicParsing="false" onAction="#handleDeleteButtonAction" prefHeight="25.0" prefWidth="180.0" text="Usuń" />
+                          <Button fx:id="edit" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="25.0" prefWidth="211.0" text="Edytuj" />
+                          <Button fx:id="more_info" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleMoreInfoButtonAction" prefHeight="25.0" prefWidth="189.0" text="Więcej Informacji" />
                      <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="Nazwa Użytkownika" textAlignment="CENTER">
                         <VBox.margin>
                            <Insets />
@@ -49,11 +49,14 @@
           </AnchorPane>
       </items>
     </SplitPane>
-   <TableView layoutX="599.0" layoutY="168.0" prefHeight="232.0" prefWidth="199.0">
+   <TableView fx:id="employeeList" layoutX="599.0" layoutY="168.0" prefHeight="232.0" prefWidth="199.0">
      <columns>
-       <TableColumn prefWidth="75.0" text="Imię" />
-       <TableColumn prefWidth="75.0" text="Nazwisko" />
+       <TableColumn fx:id="employee_name" prefWidth="75.0" text="Imię" />
+       <TableColumn fx:id="employee_surname" prefWidth="75.0" text="Nazwisko" />
      </columns>
+      <columnResizePolicy>
+         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
    </TableView>
    <VBox layoutX="617.0" prefHeight="150.0" prefWidth="164.0" spacing="10.0">
       <children>

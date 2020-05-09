@@ -1,4 +1,4 @@
-package org.controllers;
+package org.main;
 
 
 
@@ -41,6 +41,7 @@ public class LoginController {
     @FXML
     private void openMainWindow() throws IOException {
 
+        Stage primaryStage = (Stage) username.getScene().getWindow();
         Scene scene;
         FXMLLoader fxmlLoader = new
                 FXMLLoader(getClass().getResource("main.fxml"));
@@ -52,7 +53,9 @@ public class LoginController {
         JMetro jMetro = new JMetro(Style.DARK);
         jMetro.setScene(scene);
         stage.setResizable(false);
+        primaryStage.close();
         stage.show();
+
 
 
     }
@@ -76,15 +79,20 @@ public class LoginController {
        emp_user.setUsername(username.getText());
        emp_user.setPassword(password.getText());
 
-       String hql = "select username from UserEntity where username= :username and password= :password";
+       String hql = "select access_level from UserEntity where username= :username and password= :password";
        Query query = session.createQuery(hql);
+
        query.setParameter("username", emp_user.getUsername());
        query.setParameter("password", emp_user.getPassword());
+
+
        Optional first = query.getResultList().stream().findFirst();
+       if(first.isPresent()){
+       grantAccess = (int) query.getSingleResult();
        System.out.println(first);
-       return first.isPresent();
-
-
+       return true;}
+       else
+           return false;
 
    }
 
@@ -96,7 +104,6 @@ public class LoginController {
                    openMainWindow();
        test.setText("Zalogowano pomyślnie");}
        else
-           openMainWindow();
            test.setText("Nie poprawne Hasło lub Login");
 
 

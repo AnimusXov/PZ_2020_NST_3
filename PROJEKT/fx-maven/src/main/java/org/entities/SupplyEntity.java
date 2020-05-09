@@ -13,6 +13,7 @@ public class SupplyEntity {
     private Integer stoneMaterials;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "supply_id", nullable = false)
     public Integer getSupplyId() {
         return supplyId;

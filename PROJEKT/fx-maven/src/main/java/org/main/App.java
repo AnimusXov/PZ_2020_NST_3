@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("/org.fxml/login"));
+        scene = new Scene(loadFXML("login"));
         JMetro jMetro = new JMetro(Style.DARK);
         stage.setScene(scene);
         jMetro.setScene(scene);
