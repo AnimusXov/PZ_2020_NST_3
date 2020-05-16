@@ -62,6 +62,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="javafx-sdk-14" level="project" />
+    <orderEntry type="library" name="iText7-Core-7.1.11-only-jars" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:14" level="project" />
@@ -78,6 +79,19 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:14" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.12" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains:annotations:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:barcodes:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.13" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:font-asian:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:forms:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:hyph:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:io:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:kernel:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.64" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.64" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:layout:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:pdfa:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:sign:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:styled-xml-parser:7.1.11" level="project" />
+    <orderEntry type="library" name="Maven: com.itextpdf:svg:7.1.11" level="project" />
   </component>
 </module>

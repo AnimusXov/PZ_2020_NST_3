@@ -113,5 +113,20 @@ public class TaskEntity {
         result = 31 * result + (piority != null ? piority.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return
+               "Nazwa: " + name  + "\n" +
+               "Index: " + index + "\n" +
+               "Ilość: " + quantity + "\n"+
+               "Ile Zr.: "  + done  + "\n" +
+               "Status: "   + status+ "\n" +
+               "Piorytet: " + piority+ "\n" ;
+
+
+
+
+    }
 }
 

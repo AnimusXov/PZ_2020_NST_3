@@ -43,7 +43,7 @@ public class MainController {
     }
 
     @FXML
-    private void openNewWindow(String fxml) throws IOException {
+    public void openNewWindow(String fxml) throws IOException {
         Scene scene;
         FXMLLoader fxmlLoader = new
                 FXMLLoader(getClass().getResource(fxml));

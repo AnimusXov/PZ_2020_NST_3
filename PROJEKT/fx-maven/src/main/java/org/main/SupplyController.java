@@ -24,6 +24,7 @@ public class SupplyController {
     public Button delete_supply;
     public Button edit_supply;
     public TableView<SupplyEntity> supply_tableView;
+    public TableColumn<SupplyEntity, String> name;
     public TableColumn metal;
     public TableColumn wood;
     public TableColumn composite;
@@ -35,6 +36,7 @@ public class SupplyController {
     public TextField marble_txt_field;
     public TextField stone_txt_field;
     public AnchorPane anchorPane;
+    public TextField name_txt_field;
     ObservableList<SupplyEntity> listForDb = FXCollections.observableArrayList();
     IGenericService<SupplyEntity> supplyService = new GenericServiceImpl<>(
             SupplyEntity.class, HibernateUtil.getSessionFactory());
@@ -54,13 +56,13 @@ public class SupplyController {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         SupplyEntity emp_supply = new SupplyEntity();
+        emp_supply.setName(name_txt_field.getText());
         emp_supply.setMetallicMaterials(Integer.parseInt(metal_txt_field.getText()));
         emp_supply.setWoodenMaterials(Integer.parseInt(wood_txt_field.getText()));
         emp_supply.setComposites(Integer.parseInt(composite_txt_field.getText()));
         emp_supply.setMarble(Integer.parseInt(marble_txt_field.getText()));
         emp_supply.setStoneMaterials(Integer.parseInt(stone_txt_field.getText()));
         supplyService.save(emp_supply);
-        supply_tableView.getItems().addAll(supplyService.getAll());
         session.close();
         supply_tableView.getItems().add(emp_supply);
         supply_tableView.refresh();
@@ -88,6 +90,16 @@ public class SupplyController {
 
     boolean checkIfValid(Integer emp){
         return emp!=null && emp>0;
+    }
+
+
+
+    public void changeNameCellEvent(TableColumn.CellEditEvent cellEditEvent){
+        SupplyEntity supplySelected = supply_tableView.getSelectionModel().getSelectedItem();
+        supplySelected.setName((String) cellEditEvent.getNewValue());
+
+
+
     }
 
     public void changeMetalCellEvent(TableColumn.CellEditEvent cellEditEvent){
@@ -121,27 +133,27 @@ public class SupplyController {
         Integer  emp = (int) cellEditEvent.getNewValue();
         if(checkIfValid(emp))
         supplySelected.setStoneMaterials(emp);
-
-
     }
 
     @FXML
     void initialize() {
 
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
         metal.setCellValueFactory(new PropertyValueFactory<Object, Object>("metallicMaterials"));
         wood.setCellValueFactory(new PropertyValueFactory<>("woodenMaterials"));
         composite.setCellValueFactory(new PropertyValueFactory<>("composites"));
         marble.setCellValueFactory(new PropertyValueFactory<>("marble"));
         stone.setCellValueFactory(new PropertyValueFactory<>("stoneMaterials"));
-        supply_tableView.getItems().addAll(supplyService.getAll());
 
+
+        name.setCellFactory(TextFieldTableCell.forTableColumn());
         metal.setCellFactory(TextFieldTableCell.<SupplyEntity, Integer>forTableColumn(new IntegerStringConverter()));
         wood.setCellFactory(TextFieldTableCell.<SupplyEntity, Integer>forTableColumn(new IntegerStringConverter()));
         composite.setCellFactory(TextFieldTableCell.<SupplyEntity, Integer>forTableColumn(new IntegerStringConverter()));
         marble.setCellFactory(TextFieldTableCell.<SupplyEntity, Integer>forTableColumn(new IntegerStringConverter()));
         stone.setCellFactory(TextFieldTableCell.<SupplyEntity, Integer>forTableColumn(new IntegerStringConverter()));
 
-
+        supply_tableView.getItems().addAll(supplyService.getAll());
 
         anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
 

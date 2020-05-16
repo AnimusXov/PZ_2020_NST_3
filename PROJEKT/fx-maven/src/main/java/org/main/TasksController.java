@@ -1,5 +1,6 @@
 package org.main;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,6 +15,7 @@ import org.entities.SupplyEntity;
 import org.entities.TaskEntity;
 import org.hibernate.Session;
 import org.hibernateutil.HibernateUtil;
+import org.reportgenerator.ReportGen;
 import org.service.GenericServiceImpl;
 import org.service.IGenericService;
 
@@ -40,10 +42,14 @@ public class TasksController {
     public TextField done_txtField;
     public TextField status_txtField;
     public TextField priority_txtField;
+    public ComboBox<String> comboBox;
 
 
     IGenericService<TaskEntity> taskService = new GenericServiceImpl<>(
             TaskEntity.class, HibernateUtil.getSessionFactory());
+
+
+
     @FXML
     void accessCheck() {
         switch (LoginController.grantAccess) {
@@ -52,6 +58,17 @@ public class TasksController {
                 delete_task.setDisable(true);
                 break;
         }}
+    @FXML
+    /* ComboBox listener */
+    private void comboAction(ActionEvent event) throws IOException, IllegalAccessException {
+            Object selected = comboBox.getSelectionModel().getSelectedItem();
+            if(selected.toString().equals("Generuj Raport"))
+                new MainController().openNewWindow("reportconfiguration.fxml");
+
+
+
+
+    }
 
     @FXML
     private void handleEditButtonAction(ActionEvent event) throws IOException {
@@ -135,8 +152,13 @@ public class TasksController {
         taskSelected.setPiority((String) cellEditEvent.getNewValue());
 
     }
+    String value;
+
+
+
     public void initialize() {
         accessCheck();
+        /* Cell factory cell -> TaskEntity fields */
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         index.setCellValueFactory(new PropertyValueFactory<>("index"));
         quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -145,21 +167,24 @@ public class TasksController {
         priority.setCellValueFactory(new PropertyValueFactory<>("piority"));
 
 
-
+        /* Editing values in cells */
         name.setCellFactory(TextFieldTableCell.forTableColumn());
         index.setCellFactory(TextFieldTableCell.forTableColumn());
         quantity.setCellFactory(TextFieldTableCell.forTableColumn(new ShortStringConverter()));
         count.setCellFactory(TextFieldTableCell.forTableColumn(new ShortStringConverter()));
         status.setCellFactory(TextFieldTableCell.forTableColumn());
         priority.setCellFactory(TextFieldTableCell.forTableColumn());
+        /*  Adding choices to combo box */
+        comboBox.getItems().add("Generuj Raport");
+        comboBox.getItems().add("Opcja2");
+        comboBox.getItems().add("Opcja3");
+        /* Event handling for ComboBox */
 
-        actionBox.getItems().removeAll(actionBox.getItems());
-        actionBox.getItems().addAll("Zmień Stan", "Raportuj", "Gen. Raport", "Wstrzymaj");
-        actionBox.getSelectionModel().select("Zmień Stan");
 
         anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         tasksList.getItems().addAll(taskService.getAll());
 
 
     }
+
 }

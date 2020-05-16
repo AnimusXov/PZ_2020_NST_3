@@ -27,7 +27,7 @@
                       <children>
                           <Button fx:id="add" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="172.0" text="Dodaj" />
                           <Button fx:id="delete" mnemonicParsing="false" onAction="#handleDeleteButtonAction" prefHeight="25.0" prefWidth="180.0" text="Usuń" />
-                          <Button fx:id="edit" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="25.0" prefWidth="211.0" text="Edytuj" />
+                          <Button fx:id="edit" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="25.0" prefWidth="211.0" text="Zatwierdź Zmiany" />
                           <Button fx:id="more_info" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleMoreInfoButtonAction" prefHeight="25.0" prefWidth="189.0" text="Więcej Informacji" />
                      <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="Nazwa Użytkownika" textAlignment="CENTER">
                         <VBox.margin>

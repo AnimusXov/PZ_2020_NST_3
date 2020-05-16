@@ -6,11 +6,13 @@ import javax.persistence.*;
 @Table(name = "supply", schema = "public", catalog = "Firma")
 public class SupplyEntity {
     private Integer supplyId;
+    private String name;
     private Integer metallicMaterials;
     private Integer woodenMaterials;
     private Integer composites;
     private Integer marble;
     private Integer stoneMaterials;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,6 +75,16 @@ public class SupplyEntity {
         this.stoneMaterials = stoneMaterials;
     }
 
+    @Basic
+    @Column(name = "name", nullable = true, length = -1)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,6 +101,7 @@ public class SupplyEntity {
         if (marble != null ? !marble.equals(that.marble) : that.marble != null) return false;
         if (stoneMaterials != null ? !stoneMaterials.equals(that.stoneMaterials) : that.stoneMaterials != null)
             return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
     }
@@ -101,6 +114,7 @@ public class SupplyEntity {
         result = 31 * result + (composites != null ? composites.hashCode() : 0);
         result = 31 * result + (marble != null ? marble.hashCode() : 0);
         result = 31 * result + (stoneMaterials != null ? stoneMaterials.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 }

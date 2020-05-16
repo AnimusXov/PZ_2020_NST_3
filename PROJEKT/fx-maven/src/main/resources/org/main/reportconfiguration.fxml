@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="317.0" prefWidth="459.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.ReportConfigurationController">
+   <children>
+      <ButtonBar layoutX="64.0" layoutY="146.0" prefHeight="25.0" prefWidth="331.0">
+         <buttons>
+            <CheckBox fx:id="check_task" mnemonicParsing="false" text="Zadania" />
+            <CheckBox fx:id="check_employee" mnemonicParsing="false" text="Pracownicy" />
+            <Button fx:id="generate_report" mnemonicParsing="false" onAction="#handleGenerateButtonAction" text="Generuj Raport" />
+         </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

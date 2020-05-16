@@ -61,16 +61,6 @@ public class LoginController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
    @FXML
     private boolean validateUser(){
        Session session = HibernateUtil.getSessionFactory().openSession();

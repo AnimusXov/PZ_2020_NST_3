@@ -15,7 +15,11 @@ module org.example {
     requires java.activation;
     requires com.sun.xml.bind;
     requires com.fasterxml.classmate;
+    requires layout;
+    requires kernel;
+
     exports org.entities;
+
 
 
     opens org.entities to org.hibernate.orm.core;

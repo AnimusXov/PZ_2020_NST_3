@@ -81,8 +81,8 @@ public class UsersController {
     private void handleEditButtonAction(ActionEvent event) throws IOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        for (UserEntity userEntity:userList.getItems()
-        ) {usersService.update(userEntity);
+        for (UserEntity emp_user:userList.getItems()
+        ) {usersService.update(emp_user);
         };
 
         session.close();
@@ -109,6 +109,7 @@ public class UsersController {
     public void changeUserNameCellEvent(TableColumn.CellEditEvent cellEditEvent){
         UserEntity userSelected = userList.getSelectionModel().getSelectedItem();
         userSelected.setUsername((String) cellEditEvent.getNewValue());
+        usersService.update(userSelected);
 
 
 
@@ -116,12 +117,14 @@ public class UsersController {
     public void changePasswordCellEvent(TableColumn.CellEditEvent cellEditEvent){
         UserEntity userSelected = userList.getSelectionModel().getSelectedItem();
         userSelected.setPassword((String) cellEditEvent.getNewValue());
+        usersService.update(userSelected);
 
     }
     public void changeAccessLevelCellEvent(TableColumn.CellEditEvent cellEditEvent){
         UserEntity userSelected = userList.getSelectionModel().getSelectedItem();
         int emp = (int) cellEditEvent.getNewValue();
         userSelected.setAccess_level(emp);
+        usersService.update(userSelected);
     }
 
     public void initialize() {

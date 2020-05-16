@@ -23,5 +23,8 @@
         <property name="stoneMaterials">
             <column name="stone_materials" sql-type="integer"/>
         </property>
+        <property name="name">
+            <column name="name" sql-type="text" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

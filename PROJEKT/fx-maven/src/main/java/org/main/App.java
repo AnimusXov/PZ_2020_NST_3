@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.Style;
+import org.reportgenerator.ReportGen;
+
+
 import java.io.IOException;
 
 /**
@@ -37,7 +40,7 @@ public class App extends Application {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, IllegalAccessException {
         launch();
 
     }
