@@ -1,0 +1,112 @@
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 ~
+$ git init D:\kolos5
+Initialized empty Git repository in D:/kolos5/.git/
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 ~
+$ git remote add origin https://github.com/adamjestem/PZ_2020_NST_3/
+fatal: not a git repository (or any of the parent directories): .git
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 ~
+$ git remote add origin https://github.com/adamjestem/PZ_2020_NST_3
+fatal: not a git repository (or any of the parent directories): .git
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 ~
+$ git remote add origin git@github.com:adamjestem/PZ2020_NST_3
+fatal: not a git repository (or any of the parent directories): .git
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 ~
+$ cd D:\kolos5
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/kolos5 (master)
+$ git remote add origin git@github.com:adamjestem/PZ2020_NST_3
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/kolos5 (master)
+$ git remote add origin https://github.com/adamjestem/PZ_2020_NST_3
+fatal: remote origin already exists.
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/kolos5 (master)
+$ cd D:\DZ113
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113
+$ git init
+Initialized empty Git repository in D:/DZ113/.git/
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (master)
+$ git remote add DZ113 https://github.com/adamjestem/PZ_2020_NST_3/
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (master)
+$ git remote -v
+DZ113   https://github.com/adamjestem/PZ_2020_NST_3/ (fetch)
+DZ113   https://github.com/adamjestem/PZ_2020_NST_3/ (push)
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (master)
+$ git checkout BDZ113
+error: pathspec 'BDZ113' did not match any file(s) known to git
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (master)
+$ git checkout -b BDZ113
+Switched to a new branch 'BDZ113'
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ ^C
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git add konsola.txt
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git commit
+Aborting commit due to empty commit message.
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git commit
+[BDZ113 (root-commit) 4498239] added konsola.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 konsola.txt
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git push
+fatal: No configured push destination.
+Either specify the URL from the command-line or configure a remote repository using
+
+    git remote add <name> <url>
+
+and then push using the remote name
+
+    git push <name>
+
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git push BDZ113
+fatal: The current branch BDZ113 has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream BDZ113 BDZ113
+
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git push ^C
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ ^C
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git status
+On branch BDZ113
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   konsola.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git add konsola.txt
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git status
+On branch BDZ113
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   konsola.txt
+
