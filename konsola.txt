@@ -1,4 +1,3 @@
-
 Animus Vox@DESKTOP-J3SLMOV MINGW64 ~
 $ git init D:\kolos5
 Initialized empty Git repository in D:/kolos5/.git/
@@ -110,3 +109,47 @@ Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
         modified:   konsola.txt
 
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git add konsola.txt
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git push --set-upstream <origin> <branch>
+bash: syntax error near unexpected token `<'
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git push --set-upstream DZ113 BDZ113
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 224 bytes | 224.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'BDZ113' on GitHub by visiting:
+remote:      https://github.com/adamjestem/PZ_2020_NST_3/pull/new/BDZ113
+remote:
+To https://github.com/adamjestem/PZ_2020_NST_3/
+ * [new branch]      BDZ113 -> BDZ113
+Branch 'BDZ113' set up to track remote branch 'BDZ113' from 'DZ113'.
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git add konsola.txt
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git commit
+[BDZ113 adcf21f] Dodanie zawartości do pliku "konsola.txt".
+ 1 file changed, 112 insertions(+)
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$ git push --set-upstream DZ113 BDZ113
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 1.11 KiB | 1.11 MiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/adamjestem/PZ_2020_NST_3/
+   4498239..adcf21f  BDZ113 -> BDZ113
+Branch 'BDZ113' set up to track remote branch 'BDZ113' from 'DZ113'.
+
+Animus Vox@DESKTOP-J3SLMOV MINGW64 /d/DZ113 (BDZ113)
+$
