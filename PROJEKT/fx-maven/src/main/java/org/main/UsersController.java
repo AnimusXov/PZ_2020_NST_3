@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.ShortStringConverter;
 import jfxtras.styles.jmetro.JMetroStyleClass;
+import org.entities.DepartmentsEntity;
 import org.entities.EmployeeEntity;
 import org.entities.TaskEntity;
 import org.entities.UserEntity;
@@ -19,6 +20,7 @@ import org.service.IGenericService;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.*;
 
 public class UsersController {
     public Button add;
@@ -39,11 +41,15 @@ public class UsersController {
     public TableColumn<EmployeeEntity, String> employee_name;
     public TableColumn<EmployeeEntity, String> employee_surname;
     public TableView<EmployeeEntity> employeeList;
+    public TextField dep_txtField;
+    public ComboBox<DepartmentsEntity> comboBox_dep;
 
     IGenericService<UserEntity> usersService = new GenericServiceImpl<>(
             UserEntity.class, HibernateUtil.getSessionFactory());
     IGenericService<EmployeeEntity> employeeSerive = new GenericServiceImpl<>(
             EmployeeEntity.class, HibernateUtil.getSessionFactory());
+    IGenericService<DepartmentsEntity> depService = new GenericServiceImpl<>(
+            DepartmentsEntity.class, HibernateUtil.getSessionFactory());
 
 
     @FXML
@@ -53,6 +59,15 @@ public class UsersController {
             session.beginTransaction();
             EmployeeEntity emp_employee = new EmployeeEntity();
             UserEntity emp_user = new UserEntity();
+            System.out.println(comboBox_dep.getValue());
+            DepartmentsEntity emp_dep2 = (DepartmentsEntity) comboBox_dep.getValue();
+
+System.out.println(comboBox_dep.getSelectionModel().getSelectedIndex()+1);
+            DepartmentsEntity emp_dep = session.get(DepartmentsEntity.class,
+                    comboBox_dep.getSelectionModel().getSelectedIndex());
+            Set<EmployeeEntity> employeeSet = new HashSet<EmployeeEntity>();
+
+
 
             emp_user.setUsername(username_textField.getText());
             emp_user.setPassword(password_textField.getText());
@@ -60,11 +75,20 @@ public class UsersController {
 
             emp_employee.setName(name_textField.getText());
             emp_employee.setSurname(surname_textField.getText());
+
+
             emp_employee.setUser(emp_user);
+            employeeSet.add(emp_employee);
+            emp_dep.setEmployee(employeeSet);
             emp_user.setEmployeeEntity(emp_employee);
 
+            emp_employee.setDepartament(emp_dep);
+
+
+            session.update(emp_dep);
             session.persist(emp_user);
             session.getTransaction().commit();
+
             //  employeeSerive.save(emp_employee);
             //  usersService.save(emp_user);
             userList.getItems().add(emp_user);
@@ -99,9 +123,10 @@ public class UsersController {
     }
     @FXML
     private void handleMoreInfoButtonAction(ActionEvent event) throws  IOException{
-     employeeList.getItems().clear();
-     employeeList.getItems().add(userList.getSelectionModel().getSelectedItem().getEmployeeEntity());
-     employeeList.refresh();
+        if(userList.getSelectionModel().getSelectedIndex() != -1) {
+            employeeList.getItems().add(userList.getSelectionModel().getSelectedItem().getEmployeeEntity());
+            employeeList.refresh();
+        }
 
 
     }
@@ -128,6 +153,9 @@ public class UsersController {
     }
 
     public void initialize() {
+        List<DepartmentsEntity> dummy_list = depService.getAll();
+        dummy_list.sort(Comparator.comparing(DepartmentsEntity::getDepId));
+        comboBox_dep.getItems().addAll(dummy_list);
 
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
         password.setCellValueFactory(new PropertyValueFactory<>("password"));

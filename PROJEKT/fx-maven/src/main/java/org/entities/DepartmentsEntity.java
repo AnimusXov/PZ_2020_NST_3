@@ -1,6 +1,8 @@
 package org.entities;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "departments", schema = "public", catalog = "Firma")
@@ -8,7 +10,21 @@ public class DepartmentsEntity {
     private Integer depId;
     private String name;
 
+
+
+    private Set<EmployeeEntity> employee;
+
+    @OneToMany(targetEntity = EmployeeEntity.class,mappedBy = "departament")
+    public Set<EmployeeEntity> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Set<EmployeeEntity> employee) {
+        this.employee = employee;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dep_id", nullable = false)
     public Integer getDepId() {
         return depId;
@@ -41,10 +57,17 @@ public class DepartmentsEntity {
         return true;
     }
 
+
+
     @Override
     public int hashCode() {
         int result = depId != null ? depId.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -23,6 +23,19 @@ public class EmployeeEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @ManyToOne
+    @JoinColumn(name="dep_id")
+    private DepartmentsEntity departament;
+
+    public DepartmentsEntity getDepartament() {
+        return departament;
+    }
+
+    public void setDepartament(DepartmentsEntity departament) {
+        this.departament = departament;
+    }
+
+    public EmployeeEntity() {}
 
     public String getName() {
         return name;
@@ -79,6 +92,8 @@ public class EmployeeEntity {
     public void setUser(UserEntity userEntity) {
         this.user = userEntity;
     }
+
+
 
 
     @Override
