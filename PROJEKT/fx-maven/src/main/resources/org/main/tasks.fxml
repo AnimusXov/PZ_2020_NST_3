@@ -12,7 +12,7 @@
             <TableColumn fx:id="quantity" onEditCommit="#changeQuantityCellEvent" prefWidth="75.0" text="Ilość" />
             <TableColumn fx:id="count" onEditCommit="#changeCountCellEvent" prefWidth="75.0" text="Ile Zr." />
             <TableColumn fx:id="status" onEditCommit="#changeStatusCellEvent" prefWidth="75.0" text="Stan" />
-            <TableColumn fx:id="priority" onEditCommit="#changeStatusCellEvent" prefWidth="75.0" text="Piorytet" />
+            <TableColumn fx:id="priority" onEditCommit="#changePriorityCellEvent" prefWidth="75.0" text="Piorytet" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

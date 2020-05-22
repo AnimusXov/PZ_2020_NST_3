@@ -74,6 +74,10 @@ public class ReportGen {
         }
 
     }
+    public void whatStatus(){
+
+
+    }
 
 
 
@@ -85,7 +89,6 @@ public class ReportGen {
 
 
     public void taskToTableConverter(DocTemplate doc) throws IOException, IllegalAccessException {
-
         doc.doc.setTopMargin(5);
         doc.doc.setBottomMargin(50);
         doc.doc.setFont(doc.getPolish_font());
@@ -97,15 +100,11 @@ public class ReportGen {
         table.addHeaderCell("Status");
         table.addHeaderCell("Piorytet");
 
-
         table.setBackgroundColor(ColorConstants.LIGHT_GRAY,80);
-
         table.setKeepTogether(true);
-
 
         for (TaskEntity emp_ent:taskService.getAll()
              ) {
-
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getName()))));
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getIndex()))));
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getQuantity()))));
@@ -115,17 +114,13 @@ public class ReportGen {
                 table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getPiority()))));
             }
 
-
-
-
-
         }
         doc.doc.add(table);
 
 
     }
     public void employeeToTableConverter(DocTemplate doc) throws IOException, IllegalAccessException {
-        doc.doc.setTopMargin(5);
+        doc.doc.setTopMargin(100);
         doc.doc.setBottomMargin(50);
         doc.doc.setFont(doc.getPolish_font());
 

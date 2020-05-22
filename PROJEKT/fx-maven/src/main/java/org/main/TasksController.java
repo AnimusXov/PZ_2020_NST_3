@@ -4,6 +4,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
@@ -47,7 +48,8 @@ public class TasksController {
 
     IGenericService<TaskEntity> taskService = new GenericServiceImpl<>(
             TaskEntity.class, HibernateUtil.getSessionFactory());
-
+    public static final String[] priority_list = {"Brak","Niski","Średni","Wysoki"};
+    public static final  String[]   status_list = {"Zakończony" ,"Oczekujący","W Realizacji"};
 
 
     @FXML
@@ -172,8 +174,8 @@ public class TasksController {
         index.setCellFactory(TextFieldTableCell.forTableColumn());
         quantity.setCellFactory(TextFieldTableCell.forTableColumn(new ShortStringConverter()));
         count.setCellFactory(TextFieldTableCell.forTableColumn(new ShortStringConverter()));
-        status.setCellFactory(TextFieldTableCell.forTableColumn());
-        priority.setCellFactory(TextFieldTableCell.forTableColumn());
+        status.setCellFactory(ChoiceBoxTableCell.forTableColumn(status_list));
+        priority.setCellFactory(ChoiceBoxTableCell.forTableColumn(priority_list));
         /*  Adding choices to combo box */
         comboBox.getItems().add("Generuj Raport");
         comboBox.getItems().add("Opcja2");
