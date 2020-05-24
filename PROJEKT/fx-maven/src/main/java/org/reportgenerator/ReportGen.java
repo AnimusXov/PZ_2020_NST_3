@@ -1,9 +1,6 @@
 package org.reportgenerator;
 
 import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -12,28 +9,24 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import org.entities.EmployeeEntity;
 import org.entities.TaskEntity;
-import org.hibernateutil.HibernateUtil;
 import org.main.TasksController;
-import org.service.GenericServiceImpl;
 import org.service.IGenericService;
+import org.utils.ServiceUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
 
 public class ReportGen {
-
+    ServiceUtils serviceUtils = new ServiceUtils();
     TasksController emp_con = new TasksController();
     ArrayList<TaskEntity> objectsFromDb = new ArrayList<TaskEntity>();
-
-    IGenericService<TaskEntity> taskService = new GenericServiceImpl<>(
-            TaskEntity.class, HibernateUtil.getSessionFactory());
-    IGenericService<EmployeeEntity> employeeService = new GenericServiceImpl<>(
-            EmployeeEntity.class, HibernateUtil.getSessionFactory());
 
 
 
@@ -58,28 +51,64 @@ public class ReportGen {
         file.getParentFile().mkdirs();
     }
 
-    public void testGeneric(Object obj){
-        IGenericService<Object> objectService = new GenericServiceImpl<>(
-                Object.class, HibernateUtil.getSessionFactory());
-        Class<?> c = obj.getClass();
-        Field[] fields = c.getDeclaredFields();
-        Map<String, Object> temp = new HashMap<String, Object>();
 
-        for( Field field : fields ){
-            try {
-                temp.put(field.getName().toString(), field.get(obj));
-            } catch (IllegalArgumentException | IllegalAccessException e1) {
-                e1.printStackTrace();
-            }
+    public void parameterizedArrayGenerator(IGenericService<TaskEntity> service, String param1,DocTemplate doc) throws IOException {
+
+        List<TaskEntity> parameterized_Array = new ArrayList<>(service.getAll());
+        IntStream rev1;
+        IntStream rev2;
+        System.out.println(Arrays.toString(param1.getBytes()));
+        System.out.println(param1);
+        for (TaskEntity emp:parameterized_Array
+             ) {System.out.println(Arrays.toString(emp.getStatus().getBytes()) + emp.getStatus());
+
         }
 
+       parameterized_Array.removeIf(emp -> !(emp.getStatus().equals(
+             param1)));
+
+
+        tableGenerator(parameterized_Array,doc);
+    
+
     }
-    public void whatStatus(){
 
-
+    public Table addHeadersTask(Table table){
+        table.addHeaderCell("Nazwa");
+        table.addHeaderCell("Indeks");
+        table.addHeaderCell("Ilość");
+        table.addHeaderCell("Ile Zr.");
+        table.addHeaderCell("Status");
+        table.addHeaderCell("Piorytet");
+        return table;
     }
 
 
+
+
+public  void tableGenerator(List<TaskEntity> array,DocTemplate doc) throws IOException {
+    doc.doc.setTopMargin(5);
+    doc.doc.setBottomMargin(50);
+    doc.doc.setFont(doc.getPolish_font());
+    Table table = new Table(new  float[]{2,2,1,1,1,1});
+    table.setBackgroundColor(ColorConstants.LIGHT_GRAY,80);
+    table.setKeepTogether(true);
+    addHeadersTask(table);
+    for (TaskEntity emp_ent:array
+         ) {
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getName()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getIndex()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getQuantity()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getDone()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getStatus()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getPiority()))));
+        
+    }
+    doc.doc.add(table);
+
+
+
+    }
 
 
 
@@ -103,7 +132,7 @@ public class ReportGen {
         table.setBackgroundColor(ColorConstants.LIGHT_GRAY,80);
         table.setKeepTogether(true);
 
-        for (TaskEntity emp_ent:taskService.getAll()
+        for (TaskEntity emp_ent: serviceUtils.getTaskService().getAll()
              ) {
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getName()))));
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getIndex()))));
@@ -134,7 +163,7 @@ public class ReportGen {
         table.setKeepTogether(true);
 
 
-        for (EmployeeEntity emp_emp : employeeService.getAll()
+        for (EmployeeEntity emp_emp : serviceUtils.getEmployeeService().getAll()
         ) {
 
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_emp.getName()))));

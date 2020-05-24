@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import org.reportgenerator.DocTemplate;
 import org.reportgenerator.ReportGen;
+import org.utils.ServiceUtils;
 
 import java.io.IOException;
 
@@ -24,7 +25,6 @@ public class ReportConfigurationController {
     public void initialize(){
         choiceBox_priority.getItems().addAll(TasksController.priority_list);
         choiceBox_status.getItems().addAll(TasksController.status_list);
-
         anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
     }
 
@@ -34,7 +34,8 @@ public class ReportConfigurationController {
         DocTemplate doc = new DocTemplate();
         ReportGen.initialize();
         if(check_task.isSelected())
-            new ReportGen().taskToTableConverter(doc);
+            new ReportGen().parameterizedArrayGenerator(new ServiceUtils().getTaskService(),
+                    choiceBox_status.getSelectionModel().getSelectedItem(),doc);
             if(check_employee.isSelected())
                 new ReportGen().employeeToTableConverter(doc);
              doc.getDoc().close();

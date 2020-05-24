@@ -14,7 +14,7 @@ public class TaskEntity {
     private String piority;
 
     @Basic
-    @Column(name = "status", nullable = true, length = 12)
+    @Column(name = "status", nullable = true)
     public String getStatus() {
         return status;
     }

@@ -1,17 +1,16 @@
 package org.reportgenerator;
 
-import org.entities.EmployeeEntity;
+import com.itextpdf.layout.element.Table;
 import org.entities.TaskEntity;
-import org.entities.UserEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.main.TasksController;
 import org.service.IGenericService;
+import org.utils.ServiceUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,10 +24,9 @@ class ReportGenTest {
     @BeforeEach
     void setUp() throws IOException {
         reportGenUnderTest = new ReportGen();
+        reportGenUnderTest.serviceUtils = mock(ServiceUtils.class);
         reportGenUnderTest.emp_con = mock(TasksController.class);
         reportGenUnderTest.objectsFromDb = new ArrayList<>(Arrays.asList(new TaskEntity()));
-        reportGenUnderTest.taskService = mock(IGenericService.class);
-        reportGenUnderTest.employeeService = mock(IGenericService.class);
     }
 
     @Test
@@ -53,21 +51,43 @@ class ReportGenTest {
     }
 
     @Test
-    void testTestGeneric() {
+    void testParameterizedArrayGenerator() throws Exception {
         // Setup
+        final IGenericService<TaskEntity> service = null;
+        final DocTemplate doc = new DocTemplate();
 
         // Run the test
-        reportGenUnderTest.testGeneric("obj");
+        reportGenUnderTest.parameterizedArrayGenerator(service, "param1", doc);
 
         // Verify the results
     }
 
     @Test
-    void testTaskToTableConverter() throws Exception {
+    void testParameterizedArrayGenerator_ThrowsIOException() throws Exception {
         // Setup
+        final IGenericService<TaskEntity> service = null;
         final DocTemplate doc = new DocTemplate();
 
-        // Configure IGenericService.getAll(...).
+        // Run the test
+        assertThrows(IOException.class, () -> {
+            reportGenUnderTest.parameterizedArrayGenerator(service, "param1", doc);
+        });
+    }
+
+    @Test
+    void testAddHeadersTask() {
+        // Setup
+        final Table table = new Table(new float[]{0.0f}, false);
+
+        // Run the test
+        final Table result = reportGenUnderTest.addHeadersTask(table);
+
+        // Verify the results
+    }
+
+    @Test
+    void testTableGenerator() throws Exception {
+        // Setup
         final TaskEntity taskEntity = new TaskEntity();
         taskEntity.setStatus("status");
         taskEntity.setTaskId(0);
@@ -76,8 +96,40 @@ class ReportGenTest {
         taskEntity.setName("name");
         taskEntity.setIndex("index");
         taskEntity.setPiority("piority");
-        final List<TaskEntity> taskEntities = Arrays.asList(taskEntity);
-        when(reportGenUnderTest.taskService.getAll()).thenReturn(taskEntities);
+        final ArrayList<TaskEntity> array = new ArrayList<>(Arrays.asList(taskEntity));
+        final DocTemplate doc = new DocTemplate();
+
+        // Run the test
+        reportGenUnderTest.tableGenerator(array, doc);
+
+        // Verify the results
+    }
+
+    @Test
+    void testTableGenerator_ThrowsIOException() throws Exception {
+        // Setup
+        final TaskEntity taskEntity = new TaskEntity();
+        taskEntity.setStatus("status");
+        taskEntity.setTaskId(0);
+        taskEntity.setQuantity((short) 0);
+        taskEntity.setDone((short) 0);
+        taskEntity.setName("name");
+        taskEntity.setIndex("index");
+        taskEntity.setPiority("piority");
+        final ArrayList<TaskEntity> array = new ArrayList<>(Arrays.asList(taskEntity));
+        final DocTemplate doc = new DocTemplate();
+
+        // Run the test
+        assertThrows(IOException.class, () -> {
+            reportGenUnderTest.tableGenerator(array, doc);
+        });
+    }
+
+    @Test
+    void testTaskToTableConverter() throws Exception {
+        // Setup
+        final DocTemplate doc = new DocTemplate();
+        when(reportGenUnderTest.serviceUtils.getTaskService()).thenReturn(null);
 
         // Run the test
         reportGenUnderTest.taskToTableConverter(doc);
@@ -89,18 +141,7 @@ class ReportGenTest {
     void testTaskToTableConverter_ThrowsIOException() throws Exception {
         // Setup
         final DocTemplate doc = new DocTemplate();
-
-        // Configure IGenericService.getAll(...).
-        final TaskEntity taskEntity = new TaskEntity();
-        taskEntity.setStatus("status");
-        taskEntity.setTaskId(0);
-        taskEntity.setQuantity((short) 0);
-        taskEntity.setDone((short) 0);
-        taskEntity.setName("name");
-        taskEntity.setIndex("index");
-        taskEntity.setPiority("piority");
-        final List<TaskEntity> taskEntities = Arrays.asList(taskEntity);
-        when(reportGenUnderTest.taskService.getAll()).thenReturn(taskEntities);
+        when(reportGenUnderTest.serviceUtils.getTaskService()).thenReturn(null);
 
         // Run the test
         assertThrows(IOException.class, () -> {
@@ -112,18 +153,7 @@ class ReportGenTest {
     void testTaskToTableConverter_ThrowsIllegalAccessException() throws Exception {
         // Setup
         final DocTemplate doc = new DocTemplate();
-
-        // Configure IGenericService.getAll(...).
-        final TaskEntity taskEntity = new TaskEntity();
-        taskEntity.setStatus("status");
-        taskEntity.setTaskId(0);
-        taskEntity.setQuantity((short) 0);
-        taskEntity.setDone((short) 0);
-        taskEntity.setName("name");
-        taskEntity.setIndex("index");
-        taskEntity.setPiority("piority");
-        final List<TaskEntity> taskEntities = Arrays.asList(taskEntity);
-        when(reportGenUnderTest.taskService.getAll()).thenReturn(taskEntities);
+        when(reportGenUnderTest.serviceUtils.getTaskService()).thenReturn(null);
 
         // Run the test
         assertThrows(IllegalAccessException.class, () -> {
@@ -135,21 +165,7 @@ class ReportGenTest {
     void testEmployeeToTableConverter() throws Exception {
         // Setup
         final DocTemplate doc = new DocTemplate();
-
-        // Configure IGenericService.getAll(...).
-        final EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setName("name");
-        employeeEntity.setSurname("surname");
-        employeeEntity.setId(0);
-        final UserEntity userEntity = new UserEntity();
-        userEntity.setUsername("username");
-        userEntity.setPassword("password");
-        userEntity.setAccess_level(0);
-        userEntity.setId(0);
-        userEntity.setEmployeeEntity(new EmployeeEntity());
-        employeeEntity.setUser(userEntity);
-        final List<EmployeeEntity> employeeEntities = Arrays.asList(employeeEntity);
-        when(reportGenUnderTest.employeeService.getAll()).thenReturn(employeeEntities);
+        when(reportGenUnderTest.serviceUtils.getEmployeeService()).thenReturn(null);
 
         // Run the test
         reportGenUnderTest.employeeToTableConverter(doc);
@@ -157,27 +173,23 @@ class ReportGenTest {
         // Verify the results
     }
 
+    @Test
+    void testEmployeeToTableConverter_ThrowsIOException() throws Exception {
+        // Setup
+        final DocTemplate doc = new DocTemplate();
+        when(reportGenUnderTest.serviceUtils.getEmployeeService()).thenReturn(null);
 
+        // Run the test
+        assertThrows(IOException.class, () -> {
+            reportGenUnderTest.employeeToTableConverter(doc);
+        });
+    }
 
     @Test
     void testEmployeeToTableConverter_ThrowsIllegalAccessException() throws Exception {
         // Setup
         final DocTemplate doc = new DocTemplate();
-
-        // Configure IGenericService.getAll(...).
-        final EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setName("name");
-        employeeEntity.setSurname("surname");
-        employeeEntity.setId(0);
-        final UserEntity userEntity = new UserEntity();
-        userEntity.setUsername("username");
-        userEntity.setPassword("password");
-        userEntity.setAccess_level(0);
-        userEntity.setId(0);
-        userEntity.setEmployeeEntity(new EmployeeEntity());
-        employeeEntity.setUser(userEntity);
-        final List<EmployeeEntity> employeeEntities = Arrays.asList(employeeEntity);
-        when(reportGenUnderTest.employeeService.getAll()).thenReturn(employeeEntities);
+        when(reportGenUnderTest.serviceUtils.getEmployeeService()).thenReturn(null);
 
         // Run the test
         assertThrows(IllegalAccessException.class, () -> {
@@ -185,7 +197,15 @@ class ReportGenTest {
         });
     }
 
+    @Test
+    void testCreatePdf() throws Exception {
+        // Setup
 
+        // Run the test
+        reportGenUnderTest.createPdf("dest");
+
+        // Verify the results
+    }
 
     @Test
     void testCreatePdf_ThrowsIOException() {
