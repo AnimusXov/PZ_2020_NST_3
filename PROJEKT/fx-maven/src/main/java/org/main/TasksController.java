@@ -48,8 +48,8 @@ public class TasksController {
 
     IGenericService<TaskEntity> taskService = new GenericServiceImpl<>(
             TaskEntity.class, HibernateUtil.getSessionFactory());
-    public static final String[] priority_list = {"Brak","Niski","Średni","Wysoki"};
-    public static final  String[]   status_list = {"Zakończony" ,"Oczekujący","W Realizacji"};
+    public static final String[] priority_list = {"","Niski","Średni","Wysoki"};
+    public static final  String[]   status_list = {"","Zakończony" ,"Oczekujący","W Realizacji"};
 
 
     @FXML

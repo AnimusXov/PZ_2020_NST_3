@@ -7,6 +7,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.UnitValue;
 import org.entities.EmployeeEntity;
 import org.entities.TaskEntity;
 import org.main.TasksController;
@@ -52,21 +53,20 @@ public class ReportGen {
     }
 
 
-    public void parameterizedArrayGenerator(IGenericService<TaskEntity> service, String param1,DocTemplate doc) throws IOException {
+    public void parameterizedArrayGenerator(IGenericService<TaskEntity> service, String param1, String param2, DocTemplate doc) throws IOException {
 
         List<TaskEntity> parameterized_Array = new ArrayList<>(service.getAll());
-        IntStream rev1;
-        IntStream rev2;
-        System.out.println(Arrays.toString(param1.getBytes()));
-        System.out.println(param1);
-        for (TaskEntity emp:parameterized_Array
-             ) {System.out.println(Arrays.toString(emp.getStatus().getBytes()) + emp.getStatus());
 
+
+        if (!param1.equals("")) {
+            parameterized_Array.removeIf(emp -> !(emp.getStatus().equals(
+                    param1)));
         }
 
-       parameterized_Array.removeIf(emp -> !(emp.getStatus().equals(
-             param1)));
-
+        if (!param2.equals("")){
+            parameterized_Array.removeIf(emp -> !(emp.getPiority().equals(
+                    param2)));
+    }
 
         tableGenerator(parameterized_Array,doc);
     
@@ -117,46 +117,28 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc) throws IOExc
 
 
 
-    public void taskToTableConverter(DocTemplate doc) throws IOException, IllegalAccessException {
-        doc.doc.setTopMargin(5);
-        doc.doc.setBottomMargin(50);
-        doc.doc.setFont(doc.getPolish_font());
-        Table table = new Table(new  float[]{2,2,1,1,1,1});
-        table.addHeaderCell("Nazwa");
-        table.addHeaderCell("Indeks");
-        table.addHeaderCell("Ilość");
-        table.addHeaderCell("Ile Zr.");
-        table.addHeaderCell("Status");
-        table.addHeaderCell("Piorytet");
 
-        table.setBackgroundColor(ColorConstants.LIGHT_GRAY,80);
-        table.setKeepTogether(true);
-
-        for (TaskEntity emp_ent: serviceUtils.getTaskService().getAll()
-             ) {
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getName()))));
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getIndex()))));
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getQuantity()))));
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getDone()))));
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getStatus()))));
-            if(!isEmpty()) {
-                table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getPiority()))));
-            }
-
-        }
-        doc.doc.add(table);
-
-
-    }
-    public void employeeToTableConverter(DocTemplate doc) throws IOException, IllegalAccessException {
+    public void employeeToTableConverter(DocTemplate doc,boolean isDepSelected) throws IOException, IllegalAccessException {
         doc.doc.setTopMargin(100);
         doc.doc.setBottomMargin(50);
         doc.doc.setFont(doc.getPolish_font());
-
-
-        Table table = new Table(new float[]{2, 2});
+        Table table = new Table(UnitValue.createPercentArray(3)).useAllAvailableWidth();
+        if (isDepSelected) {
+            table = new Table(new float[]{1, 1, 1});
+            table.addHeaderCell("Imię");
+            table.addHeaderCell("Nazwisko");
+            table.addHeaderCell("Departament");
+        } else{
+        table = new Table(new float[]{1, 1});
         table.addHeaderCell("Imię");
         table.addHeaderCell("Nazwisko");
+
+    }
+
+
+
+
+
 
         table.setBackgroundColor(ColorConstants.LIGHT_GRAY, 80);
 
@@ -168,6 +150,9 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc) throws IOExc
 
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_emp.getName()))));
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_emp.getSurname()))));
+            if(isDepSelected){
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_emp.getDepartament().getName()))));
+            }
 
         }
    table.setHorizontalBorderSpacing(5);

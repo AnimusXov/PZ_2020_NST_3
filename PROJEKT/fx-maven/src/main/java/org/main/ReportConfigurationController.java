@@ -21,10 +21,13 @@ public class ReportConfigurationController {
     public CheckBox check_warehouse;
     public ChoiceBox<String> choiceBox_priority;
     public ChoiceBox<String> choiceBox_status;
+    public CheckBox checkBox_depForEmp;
 
     public void initialize(){
         choiceBox_priority.getItems().addAll(TasksController.priority_list);
         choiceBox_status.getItems().addAll(TasksController.status_list);
+        choiceBox_status.setValue("");
+        choiceBox_priority.setValue("");
         anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
     }
 
@@ -35,9 +38,9 @@ public class ReportConfigurationController {
         ReportGen.initialize();
         if(check_task.isSelected())
             new ReportGen().parameterizedArrayGenerator(new ServiceUtils().getTaskService(),
-                    choiceBox_status.getSelectionModel().getSelectedItem(),doc);
+                    choiceBox_status.getSelectionModel().getSelectedItem(),choiceBox_priority.getSelectionModel().getSelectedItem(),doc);
             if(check_employee.isSelected())
-                new ReportGen().employeeToTableConverter(doc);
+                new ReportGen().employeeToTableConverter(doc,checkBox_depForEmp.isSelected());
              doc.getDoc().close();
 
 

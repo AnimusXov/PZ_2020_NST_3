@@ -59,12 +59,11 @@ public class UsersController {
             session.beginTransaction();
             EmployeeEntity emp_employee = new EmployeeEntity();
             UserEntity emp_user = new UserEntity();
-            System.out.println(comboBox_dep.getValue());
             DepartmentsEntity emp_dep2 = (DepartmentsEntity) comboBox_dep.getValue();
 
 System.out.println(comboBox_dep.getSelectionModel().getSelectedIndex()+1);
             DepartmentsEntity emp_dep = session.get(DepartmentsEntity.class,
-                    comboBox_dep.getSelectionModel().getSelectedIndex());
+                    comboBox_dep.getSelectionModel().getSelectedIndex()+1);
             Set<EmployeeEntity> employeeSet = new HashSet<EmployeeEntity>();
 
 
@@ -155,6 +154,7 @@ System.out.println(comboBox_dep.getSelectionModel().getSelectedIndex()+1);
     public void initialize() {
         List<DepartmentsEntity> dummy_list = depService.getAll();
         dummy_list.sort(Comparator.comparing(DepartmentsEntity::getDepId));
+
         comboBox_dep.getItems().addAll(dummy_list);
 
         username.setCellValueFactory(new PropertyValueFactory<>("username"));

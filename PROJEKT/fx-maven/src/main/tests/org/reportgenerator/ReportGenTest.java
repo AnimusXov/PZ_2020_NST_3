@@ -11,6 +11,7 @@ import org.utils.ServiceUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -57,7 +58,7 @@ class ReportGenTest {
         final DocTemplate doc = new DocTemplate();
 
         // Run the test
-        reportGenUnderTest.parameterizedArrayGenerator(service, "param1", doc);
+        reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2", doc);
 
         // Verify the results
     }
@@ -70,7 +71,7 @@ class ReportGenTest {
 
         // Run the test
         assertThrows(IOException.class, () -> {
-            reportGenUnderTest.parameterizedArrayGenerator(service, "param1", doc);
+            reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2", doc);
         });
     }
 
@@ -96,7 +97,7 @@ class ReportGenTest {
         taskEntity.setName("name");
         taskEntity.setIndex("index");
         taskEntity.setPiority("piority");
-        final ArrayList<TaskEntity> array = new ArrayList<>(Arrays.asList(taskEntity));
+        final List<TaskEntity> array = Arrays.asList(taskEntity);
         final DocTemplate doc = new DocTemplate();
 
         // Run the test
@@ -116,48 +117,12 @@ class ReportGenTest {
         taskEntity.setName("name");
         taskEntity.setIndex("index");
         taskEntity.setPiority("piority");
-        final ArrayList<TaskEntity> array = new ArrayList<>(Arrays.asList(taskEntity));
+        final List<TaskEntity> array = Arrays.asList(taskEntity);
         final DocTemplate doc = new DocTemplate();
 
         // Run the test
         assertThrows(IOException.class, () -> {
             reportGenUnderTest.tableGenerator(array, doc);
-        });
-    }
-
-    @Test
-    void testTaskToTableConverter() throws Exception {
-        // Setup
-        final DocTemplate doc = new DocTemplate();
-        when(reportGenUnderTest.serviceUtils.getTaskService()).thenReturn(null);
-
-        // Run the test
-        reportGenUnderTest.taskToTableConverter(doc);
-
-        // Verify the results
-    }
-
-    @Test
-    void testTaskToTableConverter_ThrowsIOException() throws Exception {
-        // Setup
-        final DocTemplate doc = new DocTemplate();
-        when(reportGenUnderTest.serviceUtils.getTaskService()).thenReturn(null);
-
-        // Run the test
-        assertThrows(IOException.class, () -> {
-            reportGenUnderTest.taskToTableConverter(doc);
-        });
-    }
-
-    @Test
-    void testTaskToTableConverter_ThrowsIllegalAccessException() throws Exception {
-        // Setup
-        final DocTemplate doc = new DocTemplate();
-        when(reportGenUnderTest.serviceUtils.getTaskService()).thenReturn(null);
-
-        // Run the test
-        assertThrows(IllegalAccessException.class, () -> {
-            reportGenUnderTest.taskToTableConverter(doc);
         });
     }
 
@@ -168,7 +133,7 @@ class ReportGenTest {
         when(reportGenUnderTest.serviceUtils.getEmployeeService()).thenReturn(null);
 
         // Run the test
-        reportGenUnderTest.employeeToTableConverter(doc);
+        reportGenUnderTest.employeeToTableConverter(doc, false);
 
         // Verify the results
     }
@@ -181,7 +146,7 @@ class ReportGenTest {
 
         // Run the test
         assertThrows(IOException.class, () -> {
-            reportGenUnderTest.employeeToTableConverter(doc);
+            reportGenUnderTest.employeeToTableConverter(doc, false);
         });
     }
 
@@ -193,7 +158,7 @@ class ReportGenTest {
 
         // Run the test
         assertThrows(IllegalAccessException.class, () -> {
-            reportGenUnderTest.employeeToTableConverter(doc);
+            reportGenUnderTest.employeeToTableConverter(doc, false);
         });
     }
 
