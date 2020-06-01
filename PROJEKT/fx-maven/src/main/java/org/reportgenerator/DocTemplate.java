@@ -7,10 +7,11 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 
+import java.io.File;
 import java.io.IOException;
 
 public class DocTemplate {
-    public static final String DEST = "raporty/hello_world.pdf";
+    public static final String DEST = "c:/temp/Raport.pdf";
     public static final String FONT = "arial.ttf";
     PdfFont polish_font = PdfFontFactory.createFont(FONT, "Cp1250", true);
     PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DEST));

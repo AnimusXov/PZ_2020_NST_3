@@ -41,7 +41,11 @@ public class ReportConfigurationController {
                     choiceBox_status.getSelectionModel().getSelectedItem(),choiceBox_priority.getSelectionModel().getSelectedItem(),doc);
             if(check_employee.isSelected())
                 new ReportGen().employeeToTableConverter(doc,checkBox_depForEmp.isSelected());
-             doc.getDoc().close();
+
+            if(check_warehouse.isSelected())
+                 new ReportGen().WarehouseTableGenerator(doc);
+        doc.getDoc().close();
+
 
 
     }

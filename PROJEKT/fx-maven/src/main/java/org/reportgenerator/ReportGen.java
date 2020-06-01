@@ -9,6 +9,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.UnitValue;
 import org.entities.EmployeeEntity;
+import org.entities.SupplyEntity;
 import org.entities.TaskEntity;
 import org.main.TasksController;
 import org.service.IGenericService;
@@ -104,13 +105,45 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc) throws IOExc
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getPiority()))));
         
     }
+
     doc.doc.add(table);
 
 
 
     }
 
+public void WarehouseTableGenerator(DocTemplate doc){
+    doc.doc.setTopMargin(100);
+    doc.doc.setBottomMargin(50);
+    doc.doc.setFont(doc.getPolish_font());
+    Table table = new Table(new  float[]{2,2,1,1,1,1});
 
+   table.addHeaderCell("Nazwa");
+   table.addHeaderCell("Metale");
+   table.addHeaderCell("Drewno");
+   table.addHeaderCell("Kompozyty");
+   table.addHeaderCell("Marmur");
+   table.addHeaderCell("Kamień");
+
+   table.setBackgroundColor(ColorConstants.LIGHT_GRAY, 80);
+   table.setKeepTogether(true);
+
+    for (SupplyEntity emp_sup : serviceUtils.getSupplyService().getAll()
+    ) {
+
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_sup.getName()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_sup.getMetallicMaterials()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_sup.getWoodenMaterials()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_sup.getComposites()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_sup.getMarble()))));
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_sup.getStoneMaterials()))));
+
+
+
+    }
+    doc.doc.add(table);
+
+}
 
 
 

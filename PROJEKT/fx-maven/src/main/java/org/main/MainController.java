@@ -16,7 +16,6 @@ import jfxtras.styles.jmetro.Style;
 import java.io.IOException;
 
 public class MainController {
-    public Button userList;
     public Button manageUsers;
     public Button taskList;
     public AnchorPane anchorPane;
@@ -26,18 +25,11 @@ public class MainController {
     @FXML
     void accessCheck() {
         switch (LoginController.grantAccess) {
-            case 1:
-                userList.setDisable(true);
+            case 1 -> {
                 manageUsers.setDisable(true);
-                suppliers.setDisable(true);
                 materials.setDisable(true);
-                break;
-            case 2:
-                userList.setDisable(true);
-                manageUsers.setDisable(true);
-                break;
-
-
+            }
+            case 2 -> manageUsers.setDisable(true);
         }
 
     }

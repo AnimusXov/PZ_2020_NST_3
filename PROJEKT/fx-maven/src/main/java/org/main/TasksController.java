@@ -54,12 +54,12 @@ public class TasksController {
 
     @FXML
     void accessCheck() {
-        switch (LoginController.grantAccess) {
-            case 1:
-                add_task.setDisable(true);
-                delete_task.setDisable(true);
-                break;
-        }}
+        if (LoginController.grantAccess == 1) {
+            add_task.setDisable(true);
+            delete_task.setDisable(true);
+            comboBox.setDisable(true);
+        }
+    }
     @FXML
     /* ComboBox listener */
     private void comboAction(ActionEvent event) throws IOException, IllegalAccessException {
@@ -178,8 +178,6 @@ public class TasksController {
         priority.setCellFactory(ChoiceBoxTableCell.forTableColumn(priority_list));
         /*  Adding choices to combo box */
         comboBox.getItems().add("Generuj Raport");
-        comboBox.getItems().add("Opcja2");
-        comboBox.getItems().add("Opcja3");
         /* Event handling for ComboBox */
 
 
