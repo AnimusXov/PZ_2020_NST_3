@@ -58,7 +58,7 @@ class ReportGenTest {
         final DocTemplate doc = new DocTemplate();
 
         // Run the test
-        reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2", doc);
+        reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2","param3", doc);
 
         // Verify the results
     }
@@ -71,7 +71,7 @@ class ReportGenTest {
 
         // Run the test
         assertThrows(IOException.class, () -> {
-            reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2", doc);
+            reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2","param3", doc);
         });
     }
 
@@ -81,7 +81,7 @@ class ReportGenTest {
         final Table table = new Table(new float[]{0.0f}, false);
 
         // Run the test
-        final Table result = reportGenUnderTest.addHeadersTask(table);
+        final Table result = reportGenUnderTest.addHeadersTask(table,true);
 
         // Verify the results
     }
@@ -101,7 +101,7 @@ class ReportGenTest {
         final DocTemplate doc = new DocTemplate();
 
         // Run the test
-        reportGenUnderTest.tableGenerator(array, doc);
+        reportGenUnderTest.tableGenerator(array, doc,true);
 
         // Verify the results
     }
@@ -122,7 +122,7 @@ class ReportGenTest {
 
         // Run the test
         assertThrows(IOException.class, () -> {
-            reportGenUnderTest.tableGenerator(array, doc);
+            reportGenUnderTest.tableGenerator(array, doc,true);
         });
     }
 

@@ -6,10 +6,10 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="317.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.ReportConfigurationController">
    <children>
-      <Button fx:id="generate_report" layoutX="174.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleGenerateButtonAction" text="Generuj Raport" />
-      <HBox alignment="TOP_CENTER" layoutY="109.0" prefHeight="100.0" prefWidth="444.0" spacing="10.0">
+      <Button fx:id="generate_report" layoutX="174.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleGenerateButtonAction" text="Generuj Raport" />
+      <HBox alignment="TOP_CENTER" layoutY="109.0" prefHeight="139.0" prefWidth="444.0" spacing="10.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0" style="-fx-border-style: solid inside; -fx-border-width: 2; -fx-padding: 5; -fx-border-color: white; -fx-border-radius: 5; -fx-border-insets: 3;">
+            <VBox prefHeight="200.0" prefWidth="135.0" spacing="5.0" style="-fx-border-style: solid inside; -fx-border-width: 2; -fx-padding: 5; -fx-border-color: white; -fx-border-radius: 5; -fx-border-insets: 3;">
                <children>
                   <CheckBox fx:id="check_employee" mnemonicParsing="false" text="Pracownicy" />
                   <CheckBox fx:id="checkBox_depForEmp" mnemonicParsing="false" prefWidth="100.0" text="Departament" textAlignment="JUSTIFY" />
@@ -18,11 +18,12 @@
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0" style="-fx-border-style: solid inside; -fx-border-color: white; -fx-border-width: 2; -fx-padding: 5; -fx-border-insets: 3; -fx-border-radius: 5;">
+            <VBox prefHeight="132.0" prefWidth="128.0" spacing="5.0" style="-fx-border-style: solid inside; -fx-border-color: white; -fx-border-width: 2; -fx-padding: 5; -fx-border-insets: 3; -fx-border-radius: 5;">
                <children>
                   <CheckBox fx:id="check_task" mnemonicParsing="false" prefHeight="17.0" prefWidth="71.0" text="Zadania" />
                   <ChoiceBox fx:id="choiceBox_priority" prefWidth="150.0" />
                   <ChoiceBox fx:id="choiceBox_status" prefWidth="150.0" />
+                  <ChoiceBox fx:id="choiceBox_dep" layoutX="20.0" layoutY="72.0" prefWidth="150.0" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="150.0" spacing="5.0" style="-fx-border-style: solid inside; -fx-border-color: white; -fx-border-width: 2; -fx-padding: 5; -fx-border-insets: 3; -fx-border-radius: 5;">

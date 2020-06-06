@@ -27,6 +27,7 @@ public class EmployeeEntity {
     @JoinColumn(name="dep_id")
     private DepartmentsEntity departament;
 
+
     public DepartmentsEntity getDepartament() {
         return departament;
     }

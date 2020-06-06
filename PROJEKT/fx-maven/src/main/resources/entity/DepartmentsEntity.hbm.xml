@@ -8,7 +8,7 @@
         <id name="depId">
             <column name="dep_id" sql-type="integer"/>
         </id>
-        <property name="name">
+        <property name="getDep_name">
             <column name="name" sql-type="text" not-null="true"/>
         </property>
     </class>

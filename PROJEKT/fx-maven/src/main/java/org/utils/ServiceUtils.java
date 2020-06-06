@@ -1,5 +1,6 @@
 package org.utils;
 
+import org.entities.DepartmentsEntity;
 import org.entities.EmployeeEntity;
 import org.entities.SupplyEntity;
 import org.entities.TaskEntity;
@@ -18,6 +19,16 @@ public class ServiceUtils {
     private  IGenericService<SupplyEntity>  supplyService = new GenericServiceImpl<>(
             SupplyEntity.class, HibernateUtil.getSessionFactory());
 
+    IGenericService<DepartmentsEntity> depService = new GenericServiceImpl<>(
+            DepartmentsEntity.class, HibernateUtil.getSessionFactory());
+
+    public IGenericService<DepartmentsEntity> getDepService() {
+        return depService;
+    }
+
+    public void setDepService(IGenericService<DepartmentsEntity> depService) {
+        this.depService = depService;
+    }
 
     public IGenericService<SupplyEntity> getSupplyService() {
         return supplyService;

@@ -18,17 +18,15 @@ import org.utils.ServiceUtils;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
 
 public class ReportGen {
     ServiceUtils serviceUtils = new ServiceUtils();
     TasksController emp_con = new TasksController();
     ArrayList<TaskEntity> objectsFromDb = new ArrayList<TaskEntity>();
+    boolean isSortByDep;
 
 
 
@@ -54,9 +52,11 @@ public class ReportGen {
     }
 
 
-    public void parameterizedArrayGenerator(IGenericService<TaskEntity> service, String param1, String param2, DocTemplate doc) throws IOException {
+    public void parameterizedArrayGenerator(IGenericService<TaskEntity> service, String param1, String param2, String param3, DocTemplate doc)
+            throws IOException {
 
         List<TaskEntity> parameterized_Array = new ArrayList<>(service.getAll());
+
 
 
         if (!param1.equals("")) {
@@ -67,34 +67,49 @@ public class ReportGen {
         if (!param2.equals("")){
             parameterized_Array.removeIf(emp -> !(emp.getPiority().equals(
                     param2)));
-    }
+        }
 
-        tableGenerator(parameterized_Array,doc);
+        if(!param3.equals("")){
+            parameterized_Array.removeIf(emp -> !(emp.getDepartament().getDep_name().equals(
+                    param3)));
+             isSortByDep = true;
+        }
+
+        tableGenerator(parameterized_Array,doc,isSortByDep);
     
 
     }
 
-    public Table addHeadersTask(Table table){
+    public Table addHeadersTask(Table table,boolean isSortByDep){
         table.addHeaderCell("Nazwa");
         table.addHeaderCell("Indeks");
         table.addHeaderCell("Ilość");
         table.addHeaderCell("Ile Zr.");
         table.addHeaderCell("Status");
         table.addHeaderCell("Piorytet");
+        if(isSortByDep){
+            table.addHeaderCell("Departament");
+        }
         return table;
     }
 
 
 
 
-public  void tableGenerator(List<TaskEntity> array,DocTemplate doc) throws IOException {
+public  void tableGenerator(List<TaskEntity> array,DocTemplate doc,boolean isSortByDep) throws IOException {
     doc.doc.setTopMargin(5);
     doc.doc.setBottomMargin(50);
     doc.doc.setFont(doc.getPolish_font());
     Table table = new Table(new  float[]{2,2,1,1,1,1});
+    if(isSortByDep){
+        table = new Table(new  float[]{2,2,1,1,1,1,2});}
+
+
     table.setBackgroundColor(ColorConstants.LIGHT_GRAY,80);
     table.setKeepTogether(true);
-    addHeadersTask(table);
+
+    addHeadersTask(table,isSortByDep);
+
     for (TaskEntity emp_ent:array
          ) {
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getName()))));
@@ -103,8 +118,12 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc) throws IOExc
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getDone()))));
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getStatus()))));
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getPiority()))));
+        if(isSortByDep){
+            table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getDepartament().getDep_name()))));
+        }
         
     }
+
 
     doc.doc.add(table);
 
@@ -184,7 +203,7 @@ public void WarehouseTableGenerator(DocTemplate doc){
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_emp.getName()))));
             table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_emp.getSurname()))));
             if(isDepSelected){
-                table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_emp.getDepartament().getName()))));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_emp.getDepartament().getDep_name()))));
             }
 
         }

@@ -6,6 +6,8 @@ import javax.persistence.*;
 @Table(name = "user", schema = "public", catalog = "Firma")
 public class UserEntity {
 
+
+
     @Basic
     @Column(name = "username", nullable = false, length = -1)
     private String username;

@@ -7,6 +7,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import jfxtras.styles.jmetro.JMetroStyleClass;
+import org.entities.DepartmentsEntity;
 import org.reportgenerator.DocTemplate;
 import org.reportgenerator.ReportGen;
 import org.utils.ServiceUtils;
@@ -22,6 +23,8 @@ public class ReportConfigurationController {
     public ChoiceBox<String> choiceBox_priority;
     public ChoiceBox<String> choiceBox_status;
     public CheckBox checkBox_depForEmp;
+    public ChoiceBox<DepartmentsEntity> choiceBox_dep;
+    ServiceUtils utils = new ServiceUtils();
 
     public void initialize(){
         choiceBox_priority.getItems().addAll(TasksController.priority_list);
@@ -29,6 +32,9 @@ public class ReportConfigurationController {
         choiceBox_status.setValue("");
         choiceBox_priority.setValue("");
         anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
+        choiceBox_dep.getItems().addAll(utils.getDepService().getAll());
+
+
     }
 
 
@@ -38,12 +44,15 @@ public class ReportConfigurationController {
         ReportGen.initialize();
         if(check_task.isSelected())
             new ReportGen().parameterizedArrayGenerator(new ServiceUtils().getTaskService(),
-                    choiceBox_status.getSelectionModel().getSelectedItem(),choiceBox_priority.getSelectionModel().getSelectedItem(),doc);
+                    choiceBox_status.getSelectionModel().getSelectedItem(),choiceBox_priority.getSelectionModel().getSelectedItem(),
+                    String.valueOf(choiceBox_dep.getSelectionModel().getSelectedItem()),doc);
             if(check_employee.isSelected())
                 new ReportGen().employeeToTableConverter(doc,checkBox_depForEmp.isSelected());
 
             if(check_warehouse.isSelected())
                  new ReportGen().WarehouseTableGenerator(doc);
+
+
         doc.getDoc().close();
 
 

@@ -51,7 +51,7 @@ public class UsersController {
     IGenericService<DepartmentsEntity> depService = new GenericServiceImpl<>(
             DepartmentsEntity.class, HibernateUtil.getSessionFactory());
 
-
+    /* Add new User */
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         if(checkIfEmpty()) {
@@ -61,7 +61,6 @@ public class UsersController {
             UserEntity emp_user = new UserEntity();
             DepartmentsEntity emp_dep2 = (DepartmentsEntity) comboBox_dep.getValue();
 
-System.out.println(comboBox_dep.getSelectionModel().getSelectedIndex()+1);
             DepartmentsEntity emp_dep = session.get(DepartmentsEntity.class,
                     comboBox_dep.getSelectionModel().getSelectedIndex()+1);
             Set<EmployeeEntity> employeeSet = new HashSet<EmployeeEntity>();
@@ -123,6 +122,7 @@ System.out.println(comboBox_dep.getSelectionModel().getSelectedIndex()+1);
     @FXML
     private void handleMoreInfoButtonAction(ActionEvent event) throws  IOException{
         if(userList.getSelectionModel().getSelectedIndex() != -1) {
+            employeeList.getItems().clear();
             employeeList.getItems().add(userList.getSelectionModel().getSelectedItem().getEmployeeEntity());
             employeeList.refresh();
         }

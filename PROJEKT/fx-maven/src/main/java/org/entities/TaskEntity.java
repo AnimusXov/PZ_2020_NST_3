@@ -5,16 +5,43 @@ import javax.persistence.*;
 @Entity
 @Table(name = "task", schema = "public", catalog = "Firma")
 public class TaskEntity {
-    private String status;
-    private Integer taskId;
-    private Short quantity;
-    private Short done;
-    private String name;
-    private String index;
-    private String piority;
-
     @Basic
     @Column(name = "status", nullable = true)
+    private String status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "task_id", nullable = false)
+    private Integer taskId;
+    @Basic
+    @Column(name = "quantity", nullable = true)
+    private Short quantity;
+    @Basic
+    @Column(name = "done", nullable = true)
+    private Short done;
+    @Basic
+    @Column(name = "name", nullable = false, length = -1)
+    private String name;
+    @Basic
+    @Column(name = "index", nullable = false, length = -1)
+    private String index;
+    @Basic
+    @Column(name = "piority", nullable = true, length = -1)
+    private String piority;
+
+    @ManyToOne
+    @JoinColumn(name="dep_id")
+    private  DepartmentsEntity depa2;
+
+
+    public DepartmentsEntity getDepartament() {
+        return depa2;
+    }
+
+    public void setDepartament(DepartmentsEntity departament) {
+        this.depa2 = departament;
+    }
+
+
     public String getStatus() {
         return status;
     }
@@ -23,9 +50,7 @@ public class TaskEntity {
         this.status = status;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "task_id", nullable = false)
+
     public Integer getTaskId() {
         return taskId;
     }
@@ -34,8 +59,7 @@ public class TaskEntity {
         this.taskId = taskId;
     }
 
-    @Basic
-    @Column(name = "quantity", nullable = true)
+
     public Short getQuantity() {
         return quantity;
     }
@@ -44,8 +68,7 @@ public class TaskEntity {
         this.quantity = quantity;
     }
 
-    @Basic
-    @Column(name = "done", nullable = true)
+
     public Short getDone() {
         return done;
     }
@@ -54,8 +77,7 @@ public class TaskEntity {
         this.done = done;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = -1)
+
     public String getName() {
         return name;
     }
@@ -64,8 +86,7 @@ public class TaskEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "index", nullable = false, length = -1)
+
     public String getIndex() {
         return index;
     }
@@ -74,8 +95,7 @@ public class TaskEntity {
         this.index = index;
     }
 
-    @Basic
-    @Column(name = "piority", nullable = true, length = -1)
+
     public String getPiority() {
         return piority;
     }

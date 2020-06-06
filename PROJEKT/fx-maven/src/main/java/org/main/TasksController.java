@@ -1,27 +1,25 @@
 package org.main;
 
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.ChoiceBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.cell.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.ShortStringConverter;
 import jfxtras.styles.jmetro.JMetroStyleClass;
-import org.entities.SupplyEntity;
+import org.entities.DepartmentsEntity;
+import org.entities.EmployeeEntity;
 import org.entities.TaskEntity;
 import org.hibernate.Session;
 import org.hibernateutil.HibernateUtil;
-import org.reportgenerator.ReportGen;
 import org.service.GenericServiceImpl;
 import org.service.IGenericService;
+import org.utils.ServiceUtils;
+import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TasksController {
     public ChoiceBox actionBox;
@@ -39,17 +37,21 @@ public class TasksController {
     public Button confirm_changes;
     public TextField name_txtField;
     public TextField index_txtField;
-    public TextField quanity_txtField;
+    public TextField quantity_tetField;
     public TextField done_txtField;
-    public TextField status_txtField;
-    public TextField priority_txtField;
     public ComboBox<String> comboBox;
-
+    public ComboBox<DepartmentsEntity> comboBox_dep;
+    public Label dep_selected;
+    public CheckBox edit_mode;
+    public ComboBox<String> action_Box_status;
+    public ComboBox<String> actionBox_priority;
+    ServiceUtils utils = new ServiceUtils();
 
     IGenericService<TaskEntity> taskService = new GenericServiceImpl<>(
             TaskEntity.class, HibernateUtil.getSessionFactory());
     public static final String[] priority_list = {"","Niski","Średni","Wysoki"};
     public static final  String[]   status_list = {"","Zakończony" ,"Oczekujący","W Realizacji"};
+
 
 
     @FXML
@@ -71,6 +73,21 @@ public class TasksController {
 
 
     }
+    @FXML
+    /* ComboBox listener */
+    private void comboBoxDepAction(ActionEvent event) throws IOException, IllegalAccessException {
+        if(edit_mode.isSelected()) {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            DepartmentsEntity emp_dep = session.get(DepartmentsEntity.class,
+                    comboBox_dep.getSelectionModel().getSelectedIndex() + 1);
+            Set<EmployeeEntity> employeeSet = new HashSet<EmployeeEntity>();
+            tasksList.getSelectionModel().getSelectedItem().setDepartament(emp_dep);
+            session.getTransaction().commit();
+        }
+
+
+    }
 
     @FXML
     private void handleEditButtonAction(ActionEvent event) throws IOException {
@@ -85,20 +102,34 @@ public class TasksController {
 
         tasksList.refresh();
     }
-
+    /* Add new Task */
     @FXML
     private void handleAddButtonAction(ActionEvent event) throws IOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        TaskEntity emp_entity = new TaskEntity();
-        emp_entity.setName(name_txtField.getText());
-        emp_entity.setIndex(index_txtField.getText());
-        emp_entity.setQuantity(Short.valueOf(quanity_txtField.getText()));
-        emp_entity.setDone(Short.valueOf(done_txtField.getText()));
-        emp_entity.setStatus(status_txtField.getText());
-        emp_entity.setPiority(priority_txtField.getText());
-        taskService.save(emp_entity);
-        tasksList.getItems().add(emp_entity);
+        TaskEntity emp_task = new TaskEntity();
+
+        emp_task.setName(name_txtField.getText());
+        emp_task.setIndex(index_txtField.getText());
+        emp_task.setQuantity(Short.valueOf(quantity_tetField.getText()));
+        emp_task.setDone(Short.valueOf(done_txtField.getText()));
+        emp_task.setStatus(action_Box_status.getSelectionModel().getSelectedItem());
+        emp_task.setPiority(actionBox_priority.getSelectionModel().getSelectedItem());
+
+        DepartmentsEntity emp_dep = session.get(DepartmentsEntity.class,
+                comboBox_dep.getSelectionModel().getSelectedIndex()+1);
+        Set<TaskEntity> taskSet = new HashSet<TaskEntity>();
+
+
+
+        taskSet.add(emp_task);
+        emp_dep.setTask(taskSet);
+        emp_task.setDepartament(emp_dep);
+
+        session.update(emp_dep);
+        session.persist(emp_task);
+        session.getTransaction().commit();
+        tasksList.getItems().add(emp_task);
         session.close();
         tasksList.refresh();
 
@@ -116,7 +147,10 @@ public class TasksController {
         tasksList.refresh();
     }
 
-
+    @FXML
+    public void onMouseClickShowDep() {
+       dep_selected.setText(tasksList.getSelectionModel().getSelectedItem().getDepartament().getDep_name());
+    }
     public void changeNameCellEvent(TableColumn.CellEditEvent cellEditEvent){
         TaskEntity taskSelected = tasksList.getSelectionModel().getSelectedItem();
         taskSelected.setName((String) cellEditEvent.getNewValue());
@@ -154,12 +188,18 @@ public class TasksController {
         taskSelected.setPiority((String) cellEditEvent.getNewValue());
 
     }
+
     String value;
 
 
 
-    public void initialize() {
+    public void initialize() throws NoSuchFieldException {
+        TaskEntity emp_ent = new TaskEntity();
         accessCheck();
+        comboBox_dep.getItems().addAll(utils.getDepService().getAll());
+        actionBox_priority.getItems().addAll(priority_list);
+        action_Box_status.getItems().addAll(status_list);
+
         /* Cell factory cell -> TaskEntity fields */
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         index.setCellValueFactory(new PropertyValueFactory<>("index"));
@@ -167,6 +207,7 @@ public class TasksController {
         count.setCellValueFactory(new PropertyValueFactory<>("done"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
         priority.setCellValueFactory(new PropertyValueFactory<>("piority"));
+
 
 
         /* Editing values in cells */
@@ -183,6 +224,11 @@ public class TasksController {
 
         anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         tasksList.getItems().addAll(taskService.getAll());
+
+
+
+
+
 
 
     }
