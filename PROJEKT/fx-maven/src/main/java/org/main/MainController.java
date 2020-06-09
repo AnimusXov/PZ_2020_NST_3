@@ -21,6 +21,7 @@ public class MainController {
     public AnchorPane anchorPane;
     public Button suppliers;
     public Button materials;
+    public Button manager_button;
 
     @FXML
     void accessCheck() {
@@ -28,6 +29,7 @@ public class MainController {
             case 1 -> {
                 manageUsers.setDisable(true);
                 materials.setDisable(true);
+                manager_button.setDisable(true);
             }
             case 2 -> manageUsers.setDisable(true);
         }
@@ -67,6 +69,12 @@ public class MainController {
     private void handleButtonSupply(ActionEvent event) throws IOException {
         openNewWindow("supply.fxml");
     }
+
+    @FXML
+    private void handleButtonManager(ActionEvent event) throws IOException {
+        openNewWindow("managerPanel.fxml");
+    }
+
 
 
 

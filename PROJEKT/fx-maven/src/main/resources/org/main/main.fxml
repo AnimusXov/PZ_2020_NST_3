@@ -7,6 +7,8 @@
 <AnchorPane fx:id="anchorPane" prefHeight="251.0" prefWidth="185.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.main.MainController">
     <VBox id="vbox" alignment="CENTER" prefHeight="251.0" prefWidth="210.0" spacing="15.0" BorderPane.alignment="CENTER">
         <children>
+         <Separator layoutX="25.0" layoutY="67.0" prefWidth="200.0" />
+         <Button fx:id="manager_button" mnemonicParsing="false" onAction="#handleButtonManager" prefHeight="25.0" prefWidth="204.0" text="Panel Kierownika" />
             <Separator prefWidth="200.0" />
          <Button fx:id="materials" layoutX="20.0" layoutY="68.0" mnemonicParsing="false" onAction="#handleButtonSupply" prefHeight="25.0" prefWidth="274.0" text="Materiały" />
          <Separator layoutX="20.0" layoutY="103.0" prefWidth="200.0" />

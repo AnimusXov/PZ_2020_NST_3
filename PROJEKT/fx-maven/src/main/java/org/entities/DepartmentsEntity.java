@@ -20,12 +20,12 @@ public class DepartmentsEntity {
 
 
 
-    @OneToMany(targetEntity = TaskEntity.class,mappedBy = "depa2")
+    @OneToMany(targetEntity = TaskEntity.class,mappedBy = "depa2",cascade = CascadeType.MERGE)
     public Set<TaskEntity> getTask() {
         return task;
     }
 
-    @OneToMany(targetEntity = EmployeeEntity.class,mappedBy = "departament")
+    @OneToMany(targetEntity = EmployeeEntity.class,mappedBy = "departament",cascade = CascadeType.ALL)
     public Set<EmployeeEntity> getEmployee() {
         return employee;
     }

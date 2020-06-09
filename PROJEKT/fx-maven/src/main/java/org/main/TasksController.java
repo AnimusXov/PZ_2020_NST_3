@@ -154,9 +154,6 @@ public class TasksController {
     public void changeNameCellEvent(TableColumn.CellEditEvent cellEditEvent){
         TaskEntity taskSelected = tasksList.getSelectionModel().getSelectedItem();
         taskSelected.setName((String) cellEditEvent.getNewValue());
-
-
-
     }
     public void changeIndexCellEvent(TableColumn.CellEditEvent cellEditEvent){
         TaskEntity taskSelected = tasksList.getSelectionModel().getSelectedItem();
