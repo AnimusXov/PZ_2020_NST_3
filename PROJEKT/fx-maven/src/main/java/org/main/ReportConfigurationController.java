@@ -24,7 +24,16 @@ public class ReportConfigurationController {
     public ChoiceBox<String> choiceBox_status;
     public CheckBox checkBox_depForEmp;
     public ChoiceBox<DepartmentsEntity> choiceBox_dep;
+    public CheckBox isDep;
+    public CheckBox isPio;
+    public CheckBox isStatus;
     ServiceUtils utils = new ServiceUtils();
+    String priority;
+    String status;
+    DepartmentsEntity dep;
+    boolean priority_status;
+    boolean status_status;
+    boolean dep_status;
 
     public void initialize(){
         choiceBox_priority.getItems().addAll(TasksController.priority_list);
@@ -37,15 +46,29 @@ public class ReportConfigurationController {
 
     }
 
+    private void getParamValues(){
+        priority =  choiceBox_priority.getSelectionModel().getSelectedItem();
+        status   = choiceBox_status.getSelectionModel().getSelectedItem();
+        dep = choiceBox_dep.getSelectionModel().getSelectedItem();
+    }
+    private void getCheckBoxStates(){
+       priority_status = isPio.isSelected();
+       status_status = isStatus.isSelected();
+        dep_status = isDep.isSelected();
+    }
 
     @FXML
     private void handleGenerateButtonAction(ActionEvent event) throws IOException, IllegalAccessException {
         DocTemplate doc = new DocTemplate();
         ReportGen.initialize();
-        if(check_task.isSelected())
+        if(check_task.isSelected()) {
+            getParamValues();
+            getCheckBoxStates();
             new ReportGen().parameterizedArrayGenerator(new ServiceUtils().getTaskService(),
-                    choiceBox_status.getSelectionModel().getSelectedItem(),choiceBox_priority.getSelectionModel().getSelectedItem(),
-                    String.valueOf(choiceBox_dep.getSelectionModel().getSelectedItem()),doc);
+                    priority, status, dep,
+                    priority_status, status_status, dep_status, doc);
+        }
+
             if(check_employee.isSelected())
                 new ReportGen().employeeToTableConverter(doc,checkBox_depForEmp.isSelected());
 

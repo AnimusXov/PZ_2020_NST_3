@@ -1,6 +1,7 @@
 package org.reportgenerator;
 
 import com.itextpdf.layout.element.Table;
+import org.entities.DepartmentsEntity;
 import org.entities.TaskEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +59,7 @@ class ReportGenTest {
         final DocTemplate doc = new DocTemplate();
 
         // Run the test
-        reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2","param3", doc);
+        reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2",new DepartmentsEntity(),true,true,true, doc);
 
         // Verify the results
     }
@@ -71,7 +72,7 @@ class ReportGenTest {
 
         // Run the test
         assertThrows(IOException.class, () -> {
-            reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2","param3", doc);
+            reportGenUnderTest.parameterizedArrayGenerator(service, "param1", "param2",new DepartmentsEntity(),true,true,true, doc);
         });
     }
 

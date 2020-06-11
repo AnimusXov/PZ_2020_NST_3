@@ -8,6 +8,7 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.UnitValue;
+import org.entities.DepartmentsEntity;
 import org.entities.EmployeeEntity;
 import org.entities.SupplyEntity;
 import org.entities.TaskEntity;
@@ -52,26 +53,27 @@ public class ReportGen {
     }
 
 
-    public void parameterizedArrayGenerator(IGenericService<TaskEntity> service, String param1, String param2, String param3, DocTemplate doc)
+    public void parameterizedArrayGenerator(IGenericService<TaskEntity> service, String priority,
+                                            String status, DepartmentsEntity department,
+            boolean isPio, boolean isStatus, boolean isDep, DocTemplate doc)
             throws IOException {
-
         List<TaskEntity> parameterized_Array = new ArrayList<>(service.getAll());
 
 
 
-        if (!param1.equals("")) {
+        if (isPio) {
             parameterized_Array.removeIf(emp -> !(emp.getStatus().equals(
-                    param1)));
+                    status)));
         }
 
-        if (!param2.equals("")){
+        if (isStatus){
             parameterized_Array.removeIf(emp -> !(emp.getPiority().equals(
-                    param2)));
+                    priority)));
         }
 
-        if(!param3.equals("")){
+        if(isDep){
             parameterized_Array.removeIf(emp -> !(emp.getDepartament().getDep_name().equals(
-                    param3)));
+                    department.getDep_name())));
              isSortByDep = true;
         }
 
@@ -87,9 +89,8 @@ public class ReportGen {
         table.addHeaderCell("Ile Zr.");
         table.addHeaderCell("Status");
         table.addHeaderCell("Piorytet");
-        if(isSortByDep){
-            table.addHeaderCell("Departament");
-        }
+        table.addHeaderCell("Departament");
+
         return table;
     }
 
@@ -100,9 +101,8 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc,boolean isSor
     doc.doc.setTopMargin(5);
     doc.doc.setBottomMargin(50);
     doc.doc.setFont(doc.getPolish_font());
-    Table table = new Table(new  float[]{2,2,1,1,1,1});
-    if(isSortByDep){
-        table = new Table(new  float[]{2,2,1,1,1,1,2});}
+    Table table = new Table(new  float[]{2,2,1,1,1,1,2});
+
 
 
     table.setBackgroundColor(ColorConstants.LIGHT_GRAY,80);
@@ -118,9 +118,8 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc,boolean isSor
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getDone()))));
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getStatus()))));
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getPiority()))));
-        if(isSortByDep){
-            table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getDepartament().getDep_name()))));
-        }
+        table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getDepartament().getDep_name()))));
+
         
     }
 
