@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -20,7 +17,9 @@ import org.hibernate.Session;
 import org.hibernateutil.HibernateUtil;
 import org.utils.ServiceUtils;
 
+import javax.persistence.Query;
 import java.io.IOException;
+import java.util.Optional;
 
 public class ManagerPanelController {
 
@@ -32,10 +31,32 @@ public class ManagerPanelController {
     public TableColumn<EmployeeEntity, String> thirdCol;
     public ChoiceBox<DepartmentsEntity> select_dep;
     public Button confirm_changes;
+    public TextField newDepField;
+    public Button addNewDepButton;
+    public Label warningLabel;
 
 
     ServiceUtils utils = new ServiceUtils();
+    @FXML
+    private void handleAddNewDepButtonAction(ActionEvent event) throws IOException{
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
 
+        DepartmentsEntity newDep = new DepartmentsEntity();
+        newDep.setDep_name(newDepField.getText());
+
+        String hql = "select dep_name from DepartmentsEntity where dep_name= :name";
+        Query query = session.createQuery(hql);
+        query.setParameter("name", newDepField.getText());
+        Optional first = query.getResultList().stream().findFirst();
+        if(first.isEmpty()) {
+            session.save(newDep);
+            session.close();
+        }
+        else{
+            warningLabel.setText("Istnieje już dział o nazwie: \n " + newDepField.getText());
+        }
+    }
     @FXML
     private void handleConfirmButtonAction(ActionEvent event) throws IOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
