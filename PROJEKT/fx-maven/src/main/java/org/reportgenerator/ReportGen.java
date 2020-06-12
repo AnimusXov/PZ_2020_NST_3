@@ -1,12 +1,13 @@
 package org.reportgenerator;
 
+import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.UnitValue;
 import org.entities.DepartmentsEntity;
 import org.entities.EmployeeEntity;
@@ -32,7 +33,15 @@ public class ReportGen {
 
 
 
-
+    Div generateTitle(Paragraph title){
+        title
+                .setBold()
+                .setFontSize(20)
+                .setMarginBottom(0);
+        return new Div()
+                .add(title)
+                .setMarginBottom(18);
+    }
 
 
     public ReportGen() throws IOException {
@@ -83,6 +92,7 @@ public class ReportGen {
     }
 
     public Table addHeadersTask(Table table,boolean isSortByDep){
+
         table.addHeaderCell("Nazwa");
         table.addHeaderCell("Indeks");
         table.addHeaderCell("Ilość");
@@ -109,7 +119,8 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc,boolean isSor
     table.setKeepTogether(true);
 
     addHeadersTask(table,isSortByDep);
-
+    Paragraph title = new Paragraph("Zestawienie Zadań");
+    doc.doc.add(generateTitle(title));
     for (TaskEntity emp_ent:array
          ) {
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getName()))));
@@ -146,6 +157,10 @@ public void WarehouseTableGenerator(DocTemplate doc){
    table.setBackgroundColor(ColorConstants.LIGHT_GRAY, 80);
    table.setKeepTogether(true);
 
+
+
+    Paragraph title = new Paragraph("Zestawienie Magazynów");
+    doc.doc.add(generateTitle(title));
     for (SupplyEntity emp_sup : serviceUtils.getSupplyService().getAll()
     ) {
 
@@ -174,6 +189,9 @@ public void WarehouseTableGenerator(DocTemplate doc){
         doc.doc.setBottomMargin(50);
         doc.doc.setFont(doc.getPolish_font());
         Table table = new Table(UnitValue.createPercentArray(3)).useAllAvailableWidth();
+        Paragraph title = new Paragraph("Zestawienie Pracowników");
+       doc.doc.add(generateTitle(title));
+
         if (isDepSelected) {
             table = new Table(new float[]{1, 1, 1});
             table.addHeaderCell("Imię");

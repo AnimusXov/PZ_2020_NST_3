@@ -11,6 +11,7 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="135.0" spacing="5.0" style="-fx-border-style: solid inside; -fx-border-width: 2; -fx-padding: 5; -fx-border-color: white; -fx-border-radius: 5; -fx-border-insets: 3;">
                <children>
+                  <CheckBox fx:id="check_employee" mnemonicParsing="false" prefHeight="17.0" prefWidth="108.0" text="Pracownicy" />
                   <CheckBox fx:id="checkBox_depForEmp" mnemonicParsing="false" prefHeight="17.0" prefWidth="114.0" text="Departament" textAlignment="JUSTIFY" />
                </children>
                <HBox.margin>
@@ -19,6 +20,7 @@
             </VBox>
             <VBox prefHeight="132.0" prefWidth="128.0" spacing="10.0" style="-fx-border-style: solid inside; -fx-border-color: white; -fx-border-width: 2; -fx-padding: 5; -fx-border-insets: 3; -fx-border-radius: 5;">
                <children>
+                  <CheckBox fx:id="check_task" mnemonicParsing="false" prefHeight="17.0" prefWidth="108.0" text="Zadania" />
                   <ChoiceBox fx:id="choiceBox_priority" prefWidth="150.0" />
                   <ChoiceBox fx:id="choiceBox_status" prefWidth="150.0" />
                   <ChoiceBox fx:id="choiceBox_dep" layoutX="20.0" layoutY="72.0" prefWidth="150.0" />
@@ -33,11 +35,12 @@
                <padding>
                   <Insets top="10.0" />
                </padding>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="25.0" />
+               </HBox.margin>
             </VBox>
          </children>
       </HBox>
-      <CheckBox fx:id="check_employee" layoutX="38.0" layoutY="86.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="114.0" text="Pracownicy" />
-      <CheckBox fx:id="check_task" layoutX="190.0" layoutY="86.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="108.0" text="Zadania" />
-      <CheckBox fx:id="check_warehouse" layoutX="190.0" layoutY="59.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="108.0" text="Magazyny" />
+      <CheckBox fx:id="check_warehouse" layoutX="316.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="114.0" text="Magazyny" />
    </children>
 </AnchorPane>

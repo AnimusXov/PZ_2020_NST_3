@@ -3,7 +3,6 @@ package org.main;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,17 +11,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.converter.ShortStringConverter;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import org.entities.DepartmentsEntity;
-import org.entities.EmployeeEntity;
 import org.entities.TaskEntity;
 import org.hibernate.Session;
 import org.hibernateutil.HibernateUtil;
 import org.service.GenericServiceImpl;
 import org.service.IGenericService;
 import org.utils.ServiceUtils;
-import org.w3c.dom.events.MouseEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,8 +57,9 @@ public class TasksController {
 
 
 
+
     @FXML
-     ObservableList<DepartmentsEntity> comboBoxForTableCell(){
+    ObservableList<DepartmentsEntity> comboBoxForTableCell(){
         ObservableList<DepartmentsEntity> dep_names = FXCollections.observableArrayList();
         dep_names.addAll(utils.getDepService().getAll());
         dep_number = dep_names.size();
@@ -231,32 +228,24 @@ session.close();
 
         comboBox.getItems().add("Generuj Raport");
         tasksList.getItems().addAll(taskService.getAll());
+        getData();
     }
+    @FXML
+    void getData(){
+        if(LoginController.grantAccess==1){
+           tasksList.getItems().removeIf(taskEntity -> !taskEntity.getDepartament().getDep_name().equals(LoginController.userDepName));
+           System.out.println("deleted  \n");
+           tasksList.refresh();
+        }
 
+
+    }
 
 
     public void initialize() throws NoSuchFieldException {
         accessCheck();
         columnsConfigurator(comboBoxForTableCell());
-        System.out.println(dep_number);
-
-
-
-
-
-        /*  Adding choices to combo box */
-
-        /* Event handling for ComboBox */
-
-
         anchorPane.getStyleClass().add(JMetroStyleClass.BACKGROUND);
-
-
-
-
-
-
-
 
     }
 

@@ -1,5 +1,6 @@
 package org.main;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,7 +36,37 @@ public class ReportConfigurationController {
     boolean status_status;
     boolean dep_status;
 
+void paramsConfig(){
+    checkBox_depForEmp.setVisible(false);
+    choiceBox_status.setVisible(false);
+    choiceBox_dep.setVisible(false);
+    choiceBox_priority.setVisible(false);
+    isStatus.setVisible(false);
+    isPio.setVisible(false);
+    isDep.setVisible(false);
+}
+
+void addListeners(){
+    check_task.selectedProperty().addListener(
+            (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+                choiceBox_status.setVisible(!choiceBox_status.isVisible());
+                choiceBox_dep.setVisible(!choiceBox_dep.isVisible());
+                choiceBox_priority.setVisible(!choiceBox_priority.isVisible());
+                isDep.setVisible(!isDep.isVisible());
+                isPio.setVisible(!isPio.isVisible());
+                isStatus.setVisible(!isStatus.isVisible());});
+
+    check_employee.selectedProperty().addListener(
+            (ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+                checkBox_depForEmp.setVisible(!checkBox_depForEmp.isVisible());});
+
+}
     public void initialize(){
+        paramsConfig();
+        addListeners();
+
+
+
         choiceBox_priority.getItems().addAll(TasksController.priority_list);
         choiceBox_status.getItems().addAll(TasksController.status_list);
         choiceBox_status.setValue("");

@@ -17,6 +17,7 @@ module org.example {
     requires com.fasterxml.classmate;
     requires layout;
     requires kernel;
+    requires io;
 
     exports org.entities;
 

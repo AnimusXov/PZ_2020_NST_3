@@ -24,7 +24,7 @@ import org.hibernateutil.HibernateUtil;
 
 import javax.persistence.Query;
 import java.io.IOException;
-import java.util.Optional;
+import java.util.List;
 
 
 public class LoginController {
@@ -36,6 +36,9 @@ public class LoginController {
     public Button login;
     public PasswordField password;
     public AnchorPane anchorPane;
+    public static String userDepName;
+
+
 
 
     @FXML
@@ -62,33 +65,36 @@ public class LoginController {
 
 
    @FXML
-    private boolean validateUser(){
+    private boolean validateUser() throws NoSuchFieldException {
        Session session = HibernateUtil.getSessionFactory().openSession();
 
        UserEntity emp_user = new UserEntity();
+
        emp_user.setUsername(username.getText());
        emp_user.setPassword(password.getText());
 
-       String hql = "select access_level from UserEntity where username= :username and password= :password";
-       Query query = session.createQuery(hql);
+       String hql = "select access_level,id,username,password from \"user\" where username= :username and password= :password";
+
+       //Query query = session.createQuery(hql);
+       Query query = session.createNativeQuery(hql,UserEntity.class);
 
        query.setParameter("username", emp_user.getUsername());
        query.setParameter("password", emp_user.getPassword());
 
+       List<UserEntity> resultList =   query.getResultList();
 
-       Optional first = query.getResultList().stream().findFirst();
-       if(first.isPresent()){
-       grantAccess = (int) query.getSingleResult();
-       System.out.println(first);
+       if(!resultList.isEmpty()){
+           userDepName = resultList.get(0).getEmployeeEntity().getDepartament().getDep_name();
+           grantAccess = resultList.get(0).getEmployeeEntity().getUser().getAccess_level();
+              System.out.println(userDepName);
        return true;}
        else
            return false;
-
    }
 
 
    @FXML
-   private void handleButtonAction(ActionEvent event) throws IOException {
+   private void handleButtonAction(ActionEvent event) throws IOException, NoSuchFieldException {
        if(validateUser()){
 
                    openMainWindow();
