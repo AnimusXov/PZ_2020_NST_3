@@ -1,13 +1,15 @@
 package org.reportgenerator;
 
-import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.*;
+import com.itextpdf.layout.property.AreaBreakType;
+import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import org.entities.DepartmentsEntity;
 import org.entities.EmployeeEntity;
@@ -23,20 +25,23 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.itextpdf.kernel.colors.ColorConstants.BLUE;
+
 
 public class ReportGen {
     ServiceUtils serviceUtils = new ServiceUtils();
     TasksController emp_con = new TasksController();
     ArrayList<TaskEntity> objectsFromDb = new ArrayList<TaskEntity>();
     boolean isSortByDep;
-
+    Color headersColors = new DeviceRgb(140,198,63);
+    Color tableColor = new DeviceRgb(209,226,186);
 
 
 
     Div generateTitle(Paragraph title){
-        title
+        title.setTextAlignment(TextAlignment.CENTER)
                 .setBold()
-                .setFontSize(20)
+                .setFontSize(15)
                 .setMarginBottom(0);
         return new Div()
                 .add(title)
@@ -93,14 +98,64 @@ public class ReportGen {
 
     public Table addHeadersTask(Table table,boolean isSortByDep){
 
-        table.addHeaderCell("Nazwa");
-        table.addHeaderCell("Indeks");
-        table.addHeaderCell("Ilość");
-        table.addHeaderCell("Ile Zr.");
-        table.addHeaderCell("Status");
-        table.addHeaderCell("Piorytet");
-        table.addHeaderCell("Departament");
 
+        Paragraph header1 = new Paragraph("Nazwa");
+        Paragraph header2 = new Paragraph("Indeks");
+        Paragraph header3 = new Paragraph("Ilość");
+        Paragraph header4 = new Paragraph("Ile Zr.");
+        Paragraph header5 = new Paragraph("Status");
+        Paragraph header6 = new Paragraph("Piorytet");
+        Paragraph header7 = new Paragraph("Departament");
+        header1.setBold()
+                .setBackgroundColor(headersColors);
+        header2.setBold()
+                .setBackgroundColor(headersColors);
+        header3.setBold()
+                .setBackgroundColor(headersColors);
+        header4.setBold()
+                .setBackgroundColor(headersColors);
+        header5.setBold()
+                .setBackgroundColor(headersColors);
+        header6.setBold()
+                .setBackgroundColor(headersColors);
+        header7.setBold()
+                .setBackgroundColor(headersColors);
+        table.addHeaderCell(header1);
+        table.addHeaderCell(header2);
+        table.addHeaderCell(header3);
+        table.addHeaderCell(header4);
+        table.addHeaderCell(header5);
+        table.addHeaderCell(header6);
+        table.addHeaderCell(header7);
+
+
+        return table;
+    }
+    public Table addSupplyHeaders(Table table){
+        Paragraph header1 = new Paragraph("Nazwa");
+        Paragraph header2 = new Paragraph("Metale");
+        Paragraph header3 = new Paragraph("Drewno");
+        Paragraph header4 = new Paragraph("Kompozyty");
+        Paragraph header5 = new Paragraph("Marmur");
+        Paragraph header6 = new Paragraph("Kamień");
+        header1.setBold()
+                .setBackgroundColor(headersColors);
+        header2.setBold()
+                .setBackgroundColor(headersColors);
+        header3.setBold()
+                .setBackgroundColor(headersColors);
+        header4.setBold()
+                .setBackgroundColor(headersColors);
+        header5.setBold()
+                .setBackgroundColor(headersColors);
+        header6.setBold()
+                .setBackgroundColor(headersColors);
+        table.addHeaderCell(header1);
+        table.addHeaderCell(header2);
+        table.addHeaderCell(header3);
+        table.addHeaderCell(header4);
+        table.addHeaderCell(header5);
+        table.addHeaderCell(header6);
         return table;
     }
 
@@ -111,16 +166,20 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc,boolean isSor
     doc.doc.setTopMargin(5);
     doc.doc.setBottomMargin(50);
     doc.doc.setFont(doc.getPolish_font());
+
     Table table = new Table(new  float[]{2,2,1,1,1,1,2});
 
 
 
-    table.setBackgroundColor(ColorConstants.LIGHT_GRAY,80);
+    table.setBackgroundColor(tableColor);
     table.setKeepTogether(true);
 
     addHeadersTask(table,isSortByDep);
-    Paragraph title = new Paragraph("Zestawienie Zadań");
-    doc.doc.add(generateTitle(title));
+    Paragraph title = new Paragraph("Zestawienie Zadań")
+            .setTextAlignment(TextAlignment.CENTER)
+            .setFontSize(15);
+
+
     for (TaskEntity emp_ent:array
          ) {
         table.addCell(new Cell().add(new Paragraph(String.valueOf(emp_ent.getName()))));
@@ -134,7 +193,8 @@ public  void tableGenerator(List<TaskEntity> array,DocTemplate doc,boolean isSor
         
     }
 
-
+    table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+    doc.doc.add(title);
     doc.doc.add(table);
 
 
@@ -147,20 +207,17 @@ public void WarehouseTableGenerator(DocTemplate doc){
     doc.doc.setFont(doc.getPolish_font());
     Table table = new Table(new  float[]{2,2,1,1,1,1});
 
-   table.addHeaderCell("Nazwa");
-   table.addHeaderCell("Metale");
-   table.addHeaderCell("Drewno");
-   table.addHeaderCell("Kompozyty");
-   table.addHeaderCell("Marmur");
-   table.addHeaderCell("Kamień");
 
-   table.setBackgroundColor(ColorConstants.LIGHT_GRAY, 80);
+
+
+   table.setBackgroundColor(tableColor);
    table.setKeepTogether(true);
 
-
+    addSupplyHeaders(table);
+    doc.doc.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
     Paragraph title = new Paragraph("Zestawienie Magazynów");
-    doc.doc.add(generateTitle(title));
+
     for (SupplyEntity emp_sup : serviceUtils.getSupplyService().getAll()
     ) {
 
@@ -174,6 +231,8 @@ public void WarehouseTableGenerator(DocTemplate doc){
 
 
     }
+    table.setHorizontalAlignment(HorizontalAlignment.CENTER);
+    doc.doc.add(generateTitle(title));
     doc.doc.add(table);
 
 }
@@ -191,17 +250,25 @@ public void WarehouseTableGenerator(DocTemplate doc){
         Table table = new Table(UnitValue.createPercentArray(3)).useAllAvailableWidth();
         Paragraph title = new Paragraph("Zestawienie Pracowników");
        doc.doc.add(generateTitle(title));
-
+       Paragraph header1 = new Paragraph("Imię");
+       Paragraph header2 = new Paragraph("Nazwisko");
+       Paragraph header3 = new Paragraph("Departament");
+        header1.setBold()
+                .setBackgroundColor(headersColors);
+        header2.setBold()
+                .setBackgroundColor(headersColors);
+        header3.setBold()
+                .setBackgroundColor(headersColors);
         if (isDepSelected) {
             table = new Table(new float[]{1, 1, 1});
-            table.addHeaderCell("Imię");
-            table.addHeaderCell("Nazwisko");
-            table.addHeaderCell("Departament");
-        } else{
-        table = new Table(new float[]{1, 1});
-        table.addHeaderCell("Imię");
-        table.addHeaderCell("Nazwisko");
+            table.addHeaderCell(header1);
+            table.addHeaderCell(header2);
+            table.addHeaderCell(header3);
 
+        } else{
+            table = new Table(new float[]{1, 1});
+       table.addHeaderCell(header1);
+       table.addHeaderCell(header2);
     }
 
 
@@ -209,10 +276,10 @@ public void WarehouseTableGenerator(DocTemplate doc){
 
 
 
-        table.setBackgroundColor(ColorConstants.LIGHT_GRAY, 80);
+        table.setBackgroundColor(tableColor);
 
         table.setKeepTogether(true);
-
+        table.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
         for (EmployeeEntity emp_emp : serviceUtils.getEmployeeService().getAll()
         ) {
@@ -224,7 +291,7 @@ public void WarehouseTableGenerator(DocTemplate doc){
             }
 
         }
-   table.setHorizontalBorderSpacing(5);
+
         doc.doc.add(table);
 
 

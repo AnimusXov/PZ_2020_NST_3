@@ -92,6 +92,8 @@ void addListeners(){
     private void handleGenerateButtonAction(ActionEvent event) throws IOException, IllegalAccessException {
         DocTemplate doc = new DocTemplate();
         ReportGen.initialize();
+        doc.getDoc().add(doc.getImage().setMargins(10,10,10,10));
+        doc.getDoc().add(doc.getTitle());
         if(check_task.isSelected()) {
             getParamValues();
             getCheckBoxStates();

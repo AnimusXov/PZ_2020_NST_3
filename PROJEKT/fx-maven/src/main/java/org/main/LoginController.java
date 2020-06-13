@@ -17,9 +17,13 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.Style;
+import org.entities.DepartmentsEntity;
 import org.entities.UserEntity;
 import org.hibernate.Session;
 import org.hibernateutil.HibernateUtil;
+import org.reportgenerator.DocTemplate;
+import org.reportgenerator.ReportGen;
+import org.utils.ServiceUtils;
 
 
 import javax.persistence.Query;
